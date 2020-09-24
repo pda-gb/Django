@@ -10,14 +10,29 @@ def main(request):
 
 
 def products(request):
-     variable_date = {
-         'title': 'Товары',
-     }
-     return render(request, 'mainapp/product_list.html', variable_date)
+    links_menu_type = [
+        {'href': '#', 'name': 'rewq'},
+        {'href': '#', 'name': 'rwq'},
+        {'href': '#', 'name': 'rewq'},
+
+    ]
+    links_menu_category = [
+        {'href': '#', 'name': '3'},
+        {'href': '#', 'name': '4'},
+        {'href': '#', 'name': '5'},
+        {'href': '#', 'name': '33'},
+        {'href': '#', 'name': '44'},
+    ]
+    variable_date = {
+        'title': 'Товары',
+        'links_menu_category': links_menu_category,
+        'links_menu_type': links_menu_type,
+    }
+    return render(request, 'mainapp/product_list.html', variable_date)
 
 
 def contact(request):
-     variable_date = {
+    variable_date = {
         'title': 'Контакты',
-     }
-     return render(request, 'mainapp/contact.html', variable_date)
+    }
+    return render(request, 'mainapp/contact.html', variable_date)

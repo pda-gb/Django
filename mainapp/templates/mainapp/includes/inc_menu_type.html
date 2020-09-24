@@ -1,8 +1,6 @@
 <div class="select_option_dropdown">
-    <p><a href="#">Type 1</a></p>
-    <p><a href="#">Type 2</a></p>
-    <p><a href="#">Type 3</a></p>
-    <p><a href="#">Type 4</a></p>
-    <p><a href="#">Type 3</a></p>
-    <p><a href="#">Type 4</a></p>
+    {% for itm in links_menu_type %}
+        <p><a href="{{ itm.href }}">{{ itm.name }}</a></p>
+    {% endfor %}
+
 </div>
