@@ -230,3 +230,4 @@ dmypy.json
 cython_debug/
 
 /.directory
+/static/CACHE
