@@ -1,0 +1,2 @@
+{% if request.resolver_match.url_name == 'main' %}class="active"{% endif %}
+добавить посветку главного меню цветом #61cfe8
