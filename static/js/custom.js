@@ -1,42 +1,42 @@
 (function ($) {
   "use strict";
 
+  // закоментировано для исправления ошибки: гланое меню не фиксируется в верху экрана при прокрутке
 
-
-  $('.popup-youtube, .popup-vimeo').magnificPopup({
-    // disableOn: 700,
-    type: 'iframe',
-    mainClass: 'mfp-fade',
-    removalDelay: 160,
-    preloader: false,
-    fixedContentPos: false
-  });
-
-  var review = $('.client_review_slider');
-  if (review.length) {
-    review.owlCarousel({
-      items: 1,
-      loop: true,
-      dots: true,
-      autoplay: true,
-      autoplayHoverPause: true,
-      autoplayTimeout: 5000,
-      nav: true,
-      dots: false,
-      navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
-      responsive: {
-        0: {
-          nav: false
-        },
-        768: {
-          nav: false
-        },
-        991: {
-          nav: true
-        }
-      }
-    });
-  }
+  // $('.popup-youtube, .popup-vimeo').magnificPopup({
+  //   // disableOn: 700,
+  //   type: 'iframe',
+  //   mainClass: 'mfp-fade',
+  //   removalDelay: 160,
+  //   preloader: false,
+  //   fixedContentPos: false
+  // });
+  //
+  // var review = $('.client_review_slider');
+  // if (review.length) {
+  //   review.owlCarousel({
+  //     items: 1,
+  //     loop: true,
+  //     dots: true,
+  //     autoplay: true,
+  //     autoplayHoverPause: true,
+  //     autoplayTimeout: 5000,
+  //     nav: true,
+  //     dots: false,
+  //     navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
+  //     responsive: {
+  //       0: {
+  //         nav: false
+  //       },
+  //       768: {
+  //         nav: false
+  //       },
+  //       991: {
+  //         nav: true
+  //       }
+  //     }
+  //   });
+  // }
 
 
   var product_slide = $('.product_img_slide');
