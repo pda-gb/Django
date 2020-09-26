@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-with open( os.path.join(BASE_DIR, 'json/secret.json'), 'r') as secret_file:
+with open(os.path.join(BASE_DIR, 'json/secret.json'), 'r') as secret_file:
     secret_value = json.load(secret_file)
 SECRET_KEY = secret_value["SECRET_KEY"]
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -127,8 +127,8 @@ STATICFILES_DIRS = (
 
 STATICFILES_FINDERS = (
     # default
-#    'django.contrib.staticfiles.finders.FileSystemFinder',
-#    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    #    'django.contrib.staticfiles.finders.FileSystemFinder',
+    #    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'sass'
     'compressor.finders.CompressorFinder',
 )
