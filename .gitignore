@@ -231,3 +231,5 @@ cython_debug/
 
 /.directory
 /static/CACHE
+secret.json
+
