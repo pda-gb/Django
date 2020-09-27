@@ -49,7 +49,7 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
+      // dots: false,   // закомментировал так как дважды используется и с разным значением
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {

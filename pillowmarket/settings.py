@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'compressor',  # for connect 'sass'
+    'appconf',  # for connect 'sass'
 ]
 
 MIDDLEWARE = [
@@ -127,19 +128,15 @@ STATICFILES_DIRS = (
 
 STATICFILES_FINDERS = (
     # default
-    #    'django.contrib.staticfiles.finders.FileSystemFinder',
-    #    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+       'django.contrib.staticfiles.finders.FileSystemFinder',
+       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'sass'
     'compressor.finders.CompressorFinder',
 )
 
 COMPRESS_ENABLED = True
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-STATIC_ROOT = 'static'
+COMPRESS_ROOT = os.path.join(BASE_DIR, '../static/')
 
 ## =======================================================
 
