@@ -141,8 +141,8 @@ COMPRESS_PRECOMPILERS = (
 
 STATIC_ROOT = 'static'
 
-# COMPRESS = (
-#
-# )
-
 ## =======================================================
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
