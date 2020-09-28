@@ -15,12 +15,12 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    name = models.CharField(verbose_name='имя продукта', max_length=128)
-    image = models.ImageField(upload_to='foto_product', blank=True)
+    name = models.CharField(verbose_name='Название товара', max_length=128)
+    image = models.ImageField(upload_to='foto_product', blank=True) # upload_to папк куда загрузится фото при добавлении товара и указания фото
     # удалить кр. описание если не понадобится
-    short_desc = models.CharField(verbose_name='краткое описание продукта', max_length=60, blank=True)
-    description = models.TextField(verbose_name='описание продукта', blank=True)
-    price = models.DecimalField(verbose_name='цена продукта', max_digits=8, decimal_places=2, default=0)
+    short_desc = models.CharField(verbose_name='краткое описание товара', max_length=60, blank=True)
+    description = models.TextField(verbose_name='описание товара', blank=True)
+    price = models.DecimalField(verbose_name='цена товара', max_digits=8, decimal_places=2, default=0)
     quantity = models.PositiveIntegerField(verbose_name='количество на складе', default=0)
 
     class Meta:  # для отображения в админке имя таблицы
