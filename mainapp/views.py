@@ -1,10 +1,15 @@
 from django.shortcuts import render
-
+import mainapp.models
 
 # Create your views here.
 def main(request):
+    title = 'Магазин Подушек'
+
+    obj_products = mainapp.models.Product.objects.all()[:3]  #выведем на главной 3  товара
+
     variable_date = {
-        'title': 'Магазин Подушек',
+        'title': title,
+        'obj_products': obj_products,
     }
     return render(request, 'mainapp/index.html', variable_date)
 
