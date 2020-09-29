@@ -1,15 +1,21 @@
 from django.shortcuts import render
-
+import mainapp.models
 
 # Create your views here.
 def main(request):
+    title = 'Магазин Подушек'
+
+    obj_products = mainapp.models.Product.objects.all()[:3]  #выведем на главной 3  товара
+
     variable_date = {
-        'title': 'Магазин Подушек',
+        'title': title,
+        'obj_products': obj_products,
     }
     return render(request, 'mainapp/index.html', variable_date)
 
 
 def products(request):
+    title = 'Товары'
     links_menu_type = [
         {'href': '#', 'name': 'rewq'},
         {'href': '#', 'name': 'rwq'},
@@ -24,7 +30,7 @@ def products(request):
         {'href': '#', 'name': '44'},
     ]
     variable_date = {
-        'title': 'Товары',
+        'title': title,
         'links_menu_category': links_menu_category,
         'links_menu_type': links_menu_type,
     }
@@ -32,7 +38,8 @@ def products(request):
 
 
 def contact(request):
+    title = 'Контакты'
     variable_date = {
-        'title': 'Контакты',
+        'title': title,
     }
     return render(request, 'mainapp/contact.html', variable_date)

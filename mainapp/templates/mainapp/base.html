@@ -1,4 +1,8 @@
 {% load staticfiles %}
+
+{#  for connect 'sass'#}
+{% load compress %}
+
 <!doctype html>
 <html lang="zxx">
 
@@ -12,39 +16,46 @@
         {% endblock title %}
     </title>
     <link rel="icon" href="{% static 'img/favicon.png' %}">
+
+    {#  for connect 'sass'#}
+    {% compress css %}
+        <link type="text/x-scss" href="{% static 'sass/style.scss' %}" rel="stylesheet" media="screen">
+    {% endcompress %}
+
     {% block css %}
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- animate CSS -->
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    <!-- owl carousel CSS -->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="{% static 'css/all.css' %}">
-    <!-- flaticon CSS -->
-    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
-    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
-    <!-- font awesome CSS -->
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
-    <!-- swiper CSS -->
-    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
-    <!-- style CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- animate CSS -->
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+        <!-- owl carousel CSS -->
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+        <!-- font awesome CSS -->
+        <link rel="stylesheet" href="{% static 'css/all.css' %}">
+        <!-- flaticon CSS -->
+        <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+        <!-- font awesome CSS -->
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <!-- swiper CSS -->
+        <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+        <!-- style CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock css %}
 </head>
 
 <body>
-    {% block header %}
+{% block header %}
     <!--::header part start::-->
     <header class="main_menu home_menu">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="{% url 'main' %}"> <img src="{% static 'img/logo.png' %}" alt="logo"> </a>
+                        <a class="navbar-brand" href="{% url 'main' %}"> <img src="{% static 'img/logo.png' %}"
+                                                                              alt="logo"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
                             <span class="menu_icon"><i class="fas fa-bars"></i></span>
                         </button>
 
@@ -58,7 +69,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         product
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_1">
@@ -69,7 +80,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         pages
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
@@ -86,7 +97,7 @@
 
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
-                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         blog
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
@@ -121,35 +132,35 @@
         </div>
     </header>
     <!-- Header part end-->
-    {% endblock header %}
+{% endblock header %}
 
-    {% block banner %}
-    {% endblock banner %}
-    
-    {% block breadcrumb %}
-        <!-- breadcrumb part start-->
+{% block banner %}
+{% endblock banner %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb part start-->
     <section class="breadcrumb_part">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb_iner">
-                        <h2>{{title}}</h2>
+                        <h2>{{ title }}</h2>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- breadcrumb part end-->
-    {% endblock breadcrumb %}
+{% endblock breadcrumb %}
 
-    {% block product_list %}
-    {% endblock product_list %}
+{% block product_list %}
+{% endblock product_list %}
 
-    {% block trending_item %}
-    {% endblock trending_item %}
+{% block trending_item %}
+{% endblock trending_item %}
 
-    {% block client_review %}
-        <!-- client review part here -->
+{% block client_review %}
+    <!-- client review part here -->
     <section class="client_review">
         <div class="container">
             <div class="row justify-content-center">
@@ -159,21 +170,24 @@
                             <div class="client_img">
                                 <img src="{% static 'img/client.png' %}" alt="#">
                             </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>
                         </div>
                         <div class="single_client_review">
                             <div class="client_img">
                                 <img src="{% static 'img/client_1.png' %}" alt="#">
                             </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>
                         </div>
                         <div class="single_client_review">
                             <div class="client_img">
                                 <img src="{% static 'img/client_2.png' %}" alt="#">
                             </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
                             <h5>- Micky Mouse</h5>
                         </div>
                     </div>
@@ -182,23 +196,25 @@
         </div>
     </section>
     <!-- client review part end -->
-    {% endblock client_review %}
+{% endblock client_review %}
 
-    {% block feature %}
-         <!-- feature part here -->
+{% block feature %}
+    <!-- feature part here -->
     <section class="feature_part section_padding">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-6">
                     <div class="feature_part_tittle">
                         <h3>Credibly innovate granular
-                        internal or organic sources
-                        whereas standards.</h3>
+                            internal or organic sources
+                            whereas standards.</h3>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="feature_part_content">
-                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources. Credibly innovate granular internal or “organic” sources whereas high standards in web-readiness.</p>
+                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic”
+                            sources. Credibly innovate granular internal or “organic” sources whereas high standards in
+                            web-readiness.</p>
                     </div>
                 </div>
             </div>
@@ -231,12 +247,12 @@
         </div>
     </section>
     <!-- feature part end -->
-    {% endblock feature %}
+{% endblock feature %}
 
-    {% block contact %}
-    {% endblock contact %}
+{% block contact %}
+{% endblock contact %}
 
-    {% block subscribe %}
+{% block subscribe %}
     <!-- subscribe part here -->
     <section class="subscribe_part section_padding">
         <div class="container">
@@ -244,7 +260,8 @@
                 <div class="col-lg-8">
                     <div class="subscribe_part_content">
                         <h2>Get promotions & updates!</h2>
-                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources credibly innovate granular internal .</p>
+                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic”
+                            sources credibly innovate granular internal .</p>
                         <div class="subscribe_form">
                             <input type="email" placeholder="Enter your mail">
                             <a href="#" class="btn_1">Subscribe</a>
@@ -255,9 +272,9 @@
         </div>
     </section>
     <!-- subscribe part end -->
-    {% endblock subscribe %}
+{% endblock subscribe %}
 
-    {% block footer %}
+{% block footer %}
     <!--::footer_part start::-->
     <footer class="footer_part">
         <div class="footer_iner">
@@ -295,8 +312,12 @@
                     <div class="col-lg-12">
                         <div class="copyright_text">
                             <P><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></P>
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | This template is made with <i class="ti-heart"
+                                                                                    aria-hidden="true"></i> by <a
+                                        href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </P>
                             <div class="copyright_link">
                                 <a href="#">Turms & Conditions</a>
                                 <a href="#">FAQ</a>
@@ -308,26 +329,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </footer>
     <!--::footer_part end::-->
-    {% endblock footer %}
+{% endblock footer %}
 
 {% block js %}
-<!-- jquery plugins here-->
-<script src="js/jquery-1.12.1.min.js"></script>
+    <!-- jquery plugins here-->
+    <script src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
     <!-- popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
     <!-- bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- slick js -->
-    <script src="js/slick.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
-    <script src="js/waypoints.min.js"></script>
-    <script src="js/contact.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="js/jquery.form.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/mail-script.js"></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
     <!-- custom js -->
-    <script src="js/custom.js"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
 {% endblock js %}
 </body>
 
