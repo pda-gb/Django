@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import mainapp.models
 
-
 # Create your views here.
 def main(request):
     title = 'Магазин Подушек'
