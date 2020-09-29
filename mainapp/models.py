@@ -29,3 +29,15 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.category.name})"
+
+
+# class ProductType(models.Model):
+#     name = models.CharField(verbose_name='имя', max_length=64, unique=True)
+#     description = models.TextField(verbose_name='описание', blank=True)
+#
+#     class Meta:  # для отображения в админке имя таблицы
+#         verbose_name = 'Тип материала товаров'
+#         verbose_name_plural = 'Тип материалов товаров'
+#
+#     def __str__(self):
+#         return self.name

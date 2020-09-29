@@ -1,6 +1,3 @@
-<div class="select_option_dropdown">
     {% for itm in links_menu_category %}
-        <p><a href="{{ itm.href }}">{{ itm.name }}</a></p>
+        <p><a href="{% url 'products:pr_category' itm.id %}">{{ itm.name }}</a></p>
     {% endfor %}
-
-</div>
