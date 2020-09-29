@@ -1,3 +1,4 @@
+    <p><a href="{% url 'products:index' %}">Все</a></p>
     {% for itm in links_menu_type %}
         <p><a href="{{ itm.href }}">{{ itm.name }}</a></p>
     {% endfor %}
