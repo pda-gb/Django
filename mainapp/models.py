@@ -41,3 +41,5 @@ class Product(models.Model):
 #
 #     def __str__(self):
 #         return self.name
+
+#  отредактировать make_fill_db.py
