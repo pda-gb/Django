@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mainapp',
     'compressor',  # for connect 'sass'
     'appconf',  # for connect 'sass'
+    'authapp',
 ]
 
 MIDDLEWARE = [

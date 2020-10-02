@@ -1,3 +1,11 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+
+class buyer(AbstractUser):
+    # blank  сделать картинку "нет фото"
+    avatar = models.ImageField(verbose_name='Фото', upload_to='users_avatar', blank=True)
+    # age = models.PositiveSmallIntegerField(verbose_name='Ваш возраст')
+    age = models.DateField(verbose_name='Ваша дата рождения')
+
