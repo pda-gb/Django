@@ -1,0 +1,26 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+{% block client_review %}
+{% endblock client_review %}
+
+{% block feature %}
+{% endblock feature %}
+
+
+
+{% block subscribe %}
+{% endblock subscribe %}
+
+{% block js %}
+    {{ block.super }}
+    <!-- easing js -->
+    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+    <!-- swiper js -->
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <!-- swiper js -->
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <!-- particles js -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+{% endblock js %}
