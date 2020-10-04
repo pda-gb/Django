@@ -84,10 +84,7 @@
                                         pages
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="{% url 'authapp:login' %}">
-                                            login
 
-                                        </a>
                                         <a class="dropdown-item" href="checkout.html">product checkout</a>
                                         <a class="dropdown-item" href="cart.html">shopping cart</a>
                                         <a class="dropdown-item" href="confirmation.html">confirmation</a>
@@ -108,6 +105,11 @@
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'authapp:login' %}">
+                                            Войти
+                                        </a>
                                 </li>
                             </ul>
                         </div>
