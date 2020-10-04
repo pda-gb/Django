@@ -8,7 +8,9 @@ class BuyerLoginForm(AuthenticationForm):
         model = Buyer
         fields = ('username', 'password')
 
-    def __init__(self, *args, **kwargs):
-        super(BuyerLoginForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+# ++++ для стандартной формы login  из джанго ++++
+    # перебираем по полям формы и присваиваем класс (бутстраповский)
+    # def __init__(self, *args, **kwargs):
+    #     super(BuyerLoginForm, self).__init__(*args, **kwargs)
+    #     for field_name, field in self.fields.items():
+    #         field.widget.attrs['class'] = 'form-control'

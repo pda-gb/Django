@@ -8,4 +8,3 @@ class Buyer(AbstractUser):
     avatar = models.ImageField(verbose_name='Фото', upload_to='users_avatar', blank=True)
     # age = models.PositiveSmallIntegerField(verbose_name='Ваш возраст')
     age = models.DateField(verbose_name='Ваша дата рождения')
-
