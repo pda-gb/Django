@@ -1,24 +1,6 @@
 {% extends 'authapp/base.html' %}
 {% load staticfiles %}
 
-
-{# ++++ для стандартной формы login  из джанго ++++ #}
-
-{#{% block login %}#}
-{#    <form   action="{% url 'authapp:login' %}" method="post">#}
-{#        {% csrf_token %}#}
-{#        {{ login_form.as_p }}#}
-{#        <br>#}
-{#        <button  type="submit" value="submit" >#}
-{#            log in#}
-{#        </button>#}
-{#    </form>#}
-{##}
-{#{% endblock login %}#}
-
-
-{# ++++ для собственной формы login ++++ #}
-
 {% block login %}
     <!--================login_part Area =================-->
     <section class="login_part section_padding ">
@@ -42,16 +24,9 @@
                         {% block registry_fields_2 %}
                             <h3>Welcome Back ! <br>
                                 Please Sign in now</h3>
-                            <form class="row contact_form" action="{% url 'auth:login' %}" method="post">
+                            <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
                                 {% csrf_token %}
-                                <div class="col-md-12 form-group p_star">
-                                    <input type="text" class="form-control" id="name" name="username" value=""
-                                           placeholder="Логин">
-                                </div>
-                                <div class="col-md-12 form-group p_star">
-                                    <input type="password" class="form-control" id="password" name="password" value=""
-                                           placeholder="Пароль">
-                                </div>
+                                {{ login_form.as_p }}
                                 <div class="col-md-12 form-group">
                                     <div class="creat_account d-flex align-items-center">
                                         <input type="checkbox" id="f-option" name="selector">
