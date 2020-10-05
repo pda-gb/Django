@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 
-from authapp.forms import BuyerLoginForm
+from authapp.forms import BuyerLoginForm, BuyerRegistyForm
 
 
 def login(request):
@@ -29,4 +29,28 @@ def login(request):
 
 
 def logout(request):
-    pass
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('main'))
+
+
+def registry(request):
+    title = 'Регистрация'
+    if request.method == 'POST':
+        registry_form = BuyerRegistyForm(request.POST, request.FILES)
+        if registry_form.is_valid():
+            registry_form.save()
+            return HttpResponseRedirect(reverse('auth:login'))
+    else:
+        registry_form = BuyerRegistyForm()
+    # print('=============')
+    # print(BuyerRegistyForm.error_messages)
+    # print('=============')
+    variable_date = {
+        'title': title,
+        'registry_form': registry_form
+    }
+    return render(request, 'authapp/registry.html', variable_date)
+
+
+def edit(request):
+    return HttpResponseRedirect(reverse('main'))

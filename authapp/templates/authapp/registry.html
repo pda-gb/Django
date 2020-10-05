@@ -1,0 +1,58 @@
+{% extends 'authapp/login.html' %}
+{% load staticfiles %}
+
+    {% block registry_fields_1 %}
+        <!--================registry_part Area =================-->
+        <img src="{% static 'img/no_avatar.jpg' %}" alt="Нет фото">
+    {% endblock registry_fields_1 %}
+
+    {% block registry_fields_2 %}
+        <h3>Заполните форму<br>
+            для регистрации:</h3>
+        <form class="row contact_form" action="{% url 'authapp:registry' %}" method="post"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="username" value=""
+                       placeholder="Логин">
+            </div>
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="first_name" value=""
+                       placeholder="Имя">
+            </div>
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="last_name" value=""
+                       placeholder="Фамилия">
+            </div>
+
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="age" value=""
+                       placeholder="Дата рождения(формат ГГГГ-ММ-ДД)">
+            </div>
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="email" value=""
+                       placeholder="Почта">
+            </div>
+            <div class="col-md-12 form-group p_star">
+                <input type="text" class="form-control" id="name" name="avatar" value=""
+                       placeholder="Фото">
+            </div>
+
+            <div class="col-md-12 form-group p_star">
+                <input type="password" class="form-control" id="password" name="password1" value=""
+                       placeholder="Пароль">
+            </div>
+            <div class="col-md-12 form-group p_star">
+                <input type="password" class="form-control" id="password" name="password2" value=""
+                       placeholder="Пароль ещё раз">
+            </div>
+
+            <div class="col-md-12 form-group">
+                <button type="submit" value="submit" class="btn_3">
+                    Зарегистрировать
+                </button>
+            </div>
+            <!--================registry_part end =================-->
+        </form>
+    {% endblock registry_fields_2 %}
+
