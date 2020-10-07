@@ -17,7 +17,7 @@ def main(request):
 
 def products(request, pr_key=None):
     title = 'Товары'
-    links_menu_type = '###'
+    links_menu_type = mainapp.models.ProductType.objects.all()
     links_menu_category = mainapp.models.ProductCategory.objects.all()
 
     variable_date = {
