@@ -58,5 +58,175 @@
     "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
     "price": "3344",
     "quantity": "44"
+  },
+  {
+    "category": "Для сна(классические)",
+    "type": "пух-перо",
+    "name": "Подушка 123",
+    "image": "foto_product/product_list_1.jpg",
+    "short_desc": "100 45645 рке",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "4445",
+    "quantity": "34"
+  },
+  {
+    "category": "Для сна(классические)",
+    "type": "Гусиный пух",
+    "name": "ВВАРАИим",
+    "image": "foto_product/product_list_2.jpg",
+    "short_desc": "нернеор енен",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "6300",
+    "quantity": "3"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Полиэстер",
+    "name": "екгнеа",
+    "image": "foto_product/product_list_3.jpg",
+    "short_desc": "кенркенренрен ененен",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "3455",
+    "quantity": "54"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Верблюжий пух",
+    "name": "аППЛллорми",
+    "image": "foto_product/product_list_4.jpg",
+    "short_desc": "цукцукцукацук кеукекуе",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "1345",
+    "quantity": "200"
+  },
+  {
+    "category": "детские",
+    "type": "Бамбуковое волокно",
+    "name": "пмалорпем",
+    "image": "foto_product/product_list_5.jpg",
+    "short_desc": "цукпцукп куеуке укеуке",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "2222",
+    "quantity": "555"
+  },
+  {
+    "category": "детские",
+    "type": "пух-перо",
+    "name": "qqqqqqqq",
+    "image": "foto_product/product_list_6.jpg",
+    "short_desc": "пвпкепрке керкеркер керкер керкерк кнркрукер ывапуп",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "4409",
+    "quantity": "76"
+  },
+  {
+    "category": "Для сна(ортопедические)",
+    "type": "Силиконизированное волокно",
+    "name": "qrwerewq43243",
+    "image": "foto_product/product_list_7.jpg",
+    "short_desc": "пцукп укпукп укп ",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "834",
+    "quantity": "134"
+  },
+  {
+    "category": "Для сна(классические)",
+    "type": "Силиконизированное волокно",
+    "name": "aaaaQQQQsssss",
+    "image": "foto_product/product_list_8.jpg",
+    "short_desc": "45645 66прпрр ке",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "556.92",
+    "quantity": "678"
+  },
+  {
+    "category": "Для беременных",
+    "type": "Силиконизированное волокно",
+    "name": "33333333sssAA",
+    "image": "foto_product/product_list_9.jpg",
+    "short_desc": "4324234 35456345645 вавапвапрпкуенпек",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "1122.44",
+    "quantity": "11"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Полиэстер",
+    "name": "sgfdx",
+    "image": "foto_product/product_list_10.jpg",
+    "short_desc": "2432 кппуп 666",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "555.55",
+    "quantity": "4"
+  },
+  {
+    "category": "Наволочки",
+    "type": "Силиконизированное волокно",
+    "name": "gfsdzgf edxgfQQ",
+    "image": "foto_product/single_product_3.jpg",
+    "short_desc": "7643,55",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "4455.5",
+    "quantity": "1122"
+  },
+  {
+    "category": "Туристические",
+    "type": "Силиконизированное волокно",
+    "name": "gfdz WWWWqqq",
+    "image": "foto_product/tranding_item_1.jpg",
+    "short_desc": "апукп 3543 апепеп укпцукпукпцук укепукп",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "3411.11",
+    "quantity": "55"
+  },
+  {
+    "category": "Для сна(ортопедические)",
+    "type": "Силиконизированное волокно",
+    "name": "hfdxhdfx",
+    "image": "foto_product/tranding_item_2.jpg",
+    "short_desc": "вапрвапу укпупук укук",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "3355.67",
+    "quantity": "444"
+  },
+  {
+    "category": "Туристические",
+    "type": "Силиконизированное волокно",
+    "name": "jjjjjjyyyy",
+    "image": "foto_product/tranding_item_3.jpg",
+    "short_desc": "24 45 gg 4",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "76253.4",
+    "quantity": "12222"
+  },
+  {
+    "category": "Туристические",
+    "type": "Верблюжий пух",
+    "name": "hbghg",
+    "image": "foto_product/tranding_item_4.jpg",
+    "short_desc": "wer werwer wrwer werw ",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "1234",
+    "quantity": "56"
+  },
+  {
+    "category": "Наволочки",
+    "type": "Силиконизированное волокно",
+    "name": "kjbkj",
+    "image": "foto_product/tranding_item_5.jpg",
+    "short_desc": "qwerqwr",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "234",
+    "quantity": "4444"
+  },
+  {
+    "category": "для стула",
+    "type": "Полиэстер",
+    "name": "r,jnjhyg gygjhgv",
+    "image": "foto_product/tranding_item_6.jpg",
+    "short_desc": "skdjvnca;skjvcna;skjvcnas;kjvn",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "1233",
+    "quantity": "344"
   }
 ]
