@@ -1,0 +1,23 @@
+
+{% if user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'authapp:edit' %}">
+            {{ user.first_name }}
+        </a>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'authapp:logout' %}">
+            Выйти
+        </a>
+    </li>
+{% else %}
+    </li><li class="nav-item">
+        <a class="nav-link" href="#">
+            {{ '[имя]' }}
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'authapp:login' %}">
+            Авторизуйтесь
+        </a>
+    </li>
+{% endif %}

@@ -1,0 +1,62 @@
+[
+  {
+    "category": "Для беременных",
+    "type": "пух-перо",
+    "name": "ber1",
+    "image": "foto_product/ber.jpg",
+    "short_desc": "Для удобства беременных",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad architecto dicta magnam natus neque odio pariatur quia sint tempore.",
+    "price": "1800",
+    "quantity": "24"
+  },
+  {
+    "category": "Для беременных",
+    "type": "Силиконизированное волокно",
+    "name": "ber2",
+    "image": "foto_product/ber2.jpg",
+    "short_desc": "Для удобства беременных",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aspernatur assumenda at aut delectus dolores earum ex impedit in, inventore ipsum labore maiores maxime minima natus neque odio porro praesentium quisquam quo repellendus tempora tempore totam unde, velit voluptatem voluptates!",
+    "price": "2000",
+    "quantity": "77"
+  },
+  {
+    "category": "Для беременных",
+    "type": "Верблюжий пух",
+    "name": "ber3",
+    "image": "foto_product/ber3.jpg",
+    "short_desc": "Для удобства беременных",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem odit quibusdam quidem quos temporibus tenetur voluptates! Architecto aspernatur assumenda beatae blanditiis consequuntur, corporis cumque delectus deserunt dolor dolorem ea eligendi ex excepturi incidunt ipsum libero, nihil nisi sint ut vero! Accusamus assumenda deleniti, dolorum, est excepturi minima mollitia non quia quisquam repellendus reprehenderit tempore ullam unde veritatis voluptatem voluptates voluptatum.",
+    "price": "4356",
+    "quantity": "22"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Бамбуковое волокно",
+    "name": "Собачка",
+    "image": "foto_product/dog.jpg",
+    "short_desc": "С рисунком",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem odit quibusdam quidem quos temporibus tenetur voluptates! Architecto aspernatur assumenda beatae blanditiis consequuntur, corporis cumque delectus deserunt dolor dolorem ea eligendi ex excepturi incidunt ipsum libero, nihil nisi sint ut vero! Accusamus assumenda deleniti, dolorum, est excepturi minima mollitia non quia quisquam repellendus reprehenderit tempore ullam unde veritatis voluptatem voluptates voluptatum.",
+    "price": "5437",
+    "quantity": "88"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Полиэстер",
+    "name": "Узор",
+    "image": "foto_product/pattern.jpg",
+    "short_desc": "С узором понолитным",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem odit quibusdam quidem quos temporibus tenetur voluptates! Architecto aspernatur assumenda beatae blanditiis consequuntur, corporis cumque delectus deserunt dolor dolorem ea eligendi ex excepturi incidunt ipsum libero, nihil nisi sint ut vero! Accusamus assumenda deleniti, dolorum, est excepturi minima mollitia non quia quisquam repellendus reprehenderit tempore ullam unde veritatis voluptatem voluptates voluptatum.",
+    "price": "8234",
+    "quantity": "13"
+  },
+  {
+    "category": "Декоративные",
+    "type": "Полиэстер",
+    "name": "Декор",
+    "image": "foto_product/podushka_dekorativnaya.jpg",
+    "short_desc": "Для декора детской",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, soluta.",
+    "price": "3344",
+    "quantity": "44"
+  }
+]

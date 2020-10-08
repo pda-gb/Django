@@ -84,10 +84,7 @@
                                         pages
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
-                                        <a class="dropdown-item" href="login.html">
-                                            login
 
-                                        </a>
                                         <a class="dropdown-item" href="checkout.html">product checkout</a>
                                         <a class="dropdown-item" href="cart.html">shopping cart</a>
                                         <a class="dropdown-item" href="confirmation.html">confirmation</a>
@@ -109,6 +106,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                                 </li>
+                                {% include 'mainapp/includes/inc_login_in_main_menu.html' %}
                             </ul>
                         </div>
                         <div class="hearer_icon d-flex align-items-center">
@@ -248,6 +246,10 @@
     </section>
     <!-- feature part end -->
 {% endblock feature %}
+
+
+{% block login %}
+{% endblock login %}
 
 {% block contact %}
 {% endblock contact %}

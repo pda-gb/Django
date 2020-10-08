@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mainapp',
     'compressor',  # for connect 'sass'
     'appconf',  # for connect 'sass'
+    'authapp',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,6 @@ COMPRESS_ROOT = os.path.join(BASE_DIR, '../static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# используем своё приложение для аутентификации
+AUTH_USER_MODEL = 'authapp.Buyer'

@@ -1,0 +1,28 @@
+{% extends 'authapp/login.html' %}
+{% load staticfiles %}
+
+{% block registry_fields_1 %}
+    <!--================registry_part Area =================-->
+    <img src="{% static 'img/no_avatar.jpg' %}" alt="Нет фото">
+{% endblock registry_fields_1 %}
+
+{% block registry_fields_2 %}
+
+    {% block edit_fields_1 %}
+    <h3>Заполните форму<br>
+        для регистрации:</h3>
+    <form class="form-horizontal" action="{% url 'authapp:registry' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ registry_form.as_p }}
+    {% endblock edit_fields_1 %}
+
+    <div class="col-md-12 form-group">
+        <button type="submit" value="submit" class="btn_3">
+            {% block edit_fields_2 %}
+                Зарегистрировать
+            {% endblock edit_fields_2 %}
+        </button>
+    </div>
+    <!--================registry_part end =================-->
+    </form>
+{% endblock registry_fields_2 %}

@@ -1,0 +1,21 @@
+{% extends 'authapp/registry.html' %}
+{% load staticfiles %}
+
+
+{% block registry_fields_1 %}
+    <img src="/media/{{ user.avatar }}" alt="Фото">
+{% endblock registry_fields_1 %}
+
+{% block edit_fields_1 %}
+    <H3>Введите новые данные:</H3>
+        <form class="form-horizontal" action="{% url 'authapp:edit' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+{% endblock edit_fields_1 %}
+
+{% block edit_fields_2 %}
+    Сохранить
+{% endblock edit_fields_2 %}
+
+{% block edit_fields_3 %}
+{% endblock edit_fields_3 %}
