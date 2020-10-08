@@ -1,4 +1,4 @@
-<p><a href="{% url 'products:index' %}">Все</a></p>
+<p><a href="{% url 'products:pr_category' 0 %}">Все#</a></p>
 {% for itm in links_menu_category %}
     <p><a href="{% url 'products:pr_category' itm.id %}">{{ itm.name }}</a></p>
 {% endfor %}
