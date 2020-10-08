@@ -20,10 +20,10 @@ def products(request, pr_key=None):
     title = 'Товары'
     links_menu_type = ProductType.objects.all()
     links_menu_category = ProductCategory.objects.all()
+    products_set = Product.objects.all()
 
     if pr_key is not None:
         if pr_key == 0:
-            products_set = Product.objects.all()
             category_of_products_set = {"name": "все!"}  # при выборе дрю категории или заходе на продукты, эта строка не загружается
             # type_of_products_set = {"name": "все"}
         else:
@@ -43,6 +43,7 @@ def products(request, pr_key=None):
         'title': title,
         'links_menu_category': links_menu_category,
         'links_menu_type': links_menu_type,
+        "products_set": products_set,  # что бы при первом открывании продуктов, были показаны   все продукты
     }
     return render(request, 'mainapp/product_list.html', variable_date)
 

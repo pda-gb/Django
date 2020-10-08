@@ -22,5 +22,5 @@ class Command(BaseCommand):
         secret_value = load_from_json("secret")
         user = get_user_model()
         user.objects.create_superuser(username=secret_value["SU_name"], email=secret_value["SU_email"],
-                                      password=secret_value["SU_email"],
+                                      password=secret_value["SU_password"],
                                       age=secret_value["SU_age"])
