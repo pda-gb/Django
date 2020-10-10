@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'compressor',  # for connect 'sass'
     'appconf',  # for connect 'sass'
     'authapp',
+    'basketapp',
 ]
 
 MIDDLEWARE = [
