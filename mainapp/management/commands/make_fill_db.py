@@ -1,4 +1,5 @@
-# создание быстрых команд для выполнения частых задач ($: python manage.py make_fill_db.py )
+# создание быстрых команд для выполнения частых задач ($: python manage.py make_fill_db )
+# если из json файла в базу добавляется в поле с  UNIQUE=True уже имеющееся значение, то будет ошибка
 import json
 import os
 
@@ -22,6 +23,7 @@ def load_from_json(file_name):
 
 class Command(BaseCommand):  # свой класс унаследуем от BaseCommand
     def handle(self, *args, **options):  # с обязательным методом handle
+
         categories = load_from_json("categories")
         for itm in categories:
             ProductCategory.objects.create(**itm)  # распаковка словаря соответственно модели и распред. по ключам с
@@ -39,4 +41,3 @@ class Command(BaseCommand):  # свой класс унаследуем от Bas
             itm["type"] = type_name
             itm["category"] = category_name
             Product.objects.create(**itm)
-

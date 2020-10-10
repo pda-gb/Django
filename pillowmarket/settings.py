@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'compressor',  # for connect 'sass'
     'appconf',  # for connect 'sass'
     'authapp',
+    'basketapp',
 ]
 
 MIDDLEWARE = [
@@ -59,8 +60,7 @@ ROOT_URLCONF = 'pillowmarket.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': []
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -125,12 +125,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-##  ============  for connect 'sass'  ===================
+#  ============  for connect 'sass'  ===================
 
 STATICFILES_FINDERS = (
     # default
-       'django.contrib.staticfiles.finders.FileSystemFinder',
-       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # 'sass'
     'compressor.finders.CompressorFinder',
 )
@@ -139,7 +139,7 @@ COMPRESS_ENABLED = True
 
 COMPRESS_ROOT = os.path.join(BASE_DIR, '../static/')
 
-## =======================================================
+# =======================================================
 
 
 MEDIA_URL = '/media/'
