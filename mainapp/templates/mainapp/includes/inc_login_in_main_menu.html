@@ -2,7 +2,7 @@
 {% if user.is_authenticated %}
     <li class="nav-item">
         <a class="nav-link" href="{% url 'authapp:edit' %}">
-            {{ user.first_name }}
+           | {{ user.username }} |
         </a>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'authapp:logout' %}">
