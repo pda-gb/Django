@@ -1,16 +1,20 @@
 from django.shortcuts import render, get_object_or_404
+
+from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory, ProductType
 
 
 # Create your views here.
 def main(request):
     title = 'Магазин Подушек'
+    basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
 
     obj_products = Product.objects.all()[5:8]  # выведем на главной 3  товара
 
     variable_date = {
         'title': title,
         'obj_products': obj_products,
+        'basket_itm': basket_itm
     }
     return render(request, 'mainapp/index.html', variable_date)
 
@@ -21,7 +25,9 @@ def products(request, pr_key=None):
     links_menu_type = ProductType.objects.all()
     links_menu_category = ProductCategory.objects.all()
     products_set = Product.objects.all()
-
+    basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
+    print('+++++#++++++')
+    print(basket_itm)
     if pr_key is not None:
         if pr_key == 0:
             category_of_products_set = {"name": "все!"}  # при выборе дрю категории или заходе на продукты, эта строка не загружается
@@ -35,7 +41,8 @@ def products(request, pr_key=None):
             'links_menu_category': links_menu_category,
             'links_menu_type': links_menu_type,
             "products_set": products_set,
-            "category_of_products_set": category_of_products_set
+            'category_of_products_set': category_of_products_set,
+            'basket_itm': basket_itm
         }
         return render(request, 'mainapp/product_list.html', variable_date)
 
@@ -43,7 +50,8 @@ def products(request, pr_key=None):
         'title': title,
         'links_menu_category': links_menu_category,
         'links_menu_type': links_menu_type,
-        "products_set": products_set,  # что бы при первом открывании продуктов, были показаны   все продукты
+        'products_set': products_set,  # что бы при первом открывании продуктов, были показаны   все продукты
+        'basket_itm': basket_itm
     }
     return render(request, 'mainapp/product_list.html', variable_date)
 
@@ -51,6 +59,6 @@ def products(request, pr_key=None):
 def contact(request):
     title = 'Контакты'
     variable_date = {
-        'title': title,
+        'title': title
     }
     return render(request, 'mainapp/contact.html', variable_date)

@@ -7,11 +7,9 @@ from mainapp.models import Product
 def basket(request):
     title = 'корзина'
     basket_itm = Basket.objects.filter(buyer=request.user)
-    # basket_itm = Product.objects.filter(basket__buyer=buyer)
     variable_date = {
         'title': title,
         'basket_itm': basket_itm
-
     }
     print('+++++1++++++')
     print(basket_itm)
