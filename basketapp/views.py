@@ -6,13 +6,15 @@ from mainapp.models import Product
 
 def basket(request):
     title = 'корзина'
-    basket_itm = Basket.objects.filter(buyer=request.user)
+    shop_user = request.user  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
+    basket_itm = None
+    if not shop_user.is_anonymous:
+        basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
+
     variable_date = {
         'title': title,
         'basket_itm': basket_itm
     }
-    print('+++++1++++++')
-    print(basket_itm)
     return render(request, 'basketapp/basket.html', variable_date)
 
 

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 
+from authapp.models import Buyer
 from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory, ProductType
 
@@ -7,10 +8,11 @@ from mainapp.models import Product, ProductCategory, ProductType
 # Create your views here.
 def main(request):
     title = 'Магазин Подушек'
-    basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
-
+    shop_user = request.user  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
+    basket_itm = None
+    if not shop_user.is_anonymous:
+        basket_itm = Basket.objects.filter(buyer=shop_user)  # собираем товары из корзины, для отображ. кол.-ва
     obj_products = Product.objects.all()[5:8]  # выведем на главной 3  товара
-
     variable_date = {
         'title': title,
         'obj_products': obj_products,
@@ -25,9 +27,11 @@ def products(request, pr_key=None):
     links_menu_type = ProductType.objects.all()
     links_menu_category = ProductCategory.objects.all()
     products_set = Product.objects.all()
-    basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
-    print('+++++#++++++')
-    print(basket_itm)
+
+    shop_user = request.user  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
+    basket_itm = None
+    if not shop_user.is_anonymous:
+        basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
     if pr_key is not None:
         if pr_key == 0:
             category_of_products_set = {"name": "все!"}  # при выборе дрю категории или заходе на продукты, эта строка не загружается
@@ -58,7 +62,12 @@ def products(request, pr_key=None):
 
 def contact(request):
     title = 'Контакты'
+    shop_user = request.user  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
+    basket_itm = None
+    if not shop_user.is_anonymous:
+        basket_itm = Basket.objects.filter(buyer=request.user)  # собираем товары из корзины, для отображ. кол.-ва
     variable_date = {
-        'title': title
+        'title': title,
+        'basket_itm': basket_itm
     }
     return render(request, 'mainapp/contact.html', variable_date)
