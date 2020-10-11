@@ -98,3 +98,13 @@ def contact(request):
         'basket_itm': basket_itm
     }
     return render(request, 'mainapp/contact.html', variable_date)
+
+
+def single_product(request, pk_prod):
+    single_prod = get_object_or_404(Product, pk=pk_prod)
+    title = single_prod.name
+    variable_date = {
+        'title': title,
+        'single_prod': single_prod
+    }
+    return render(request, 'mainapp/.html', variable_date)
