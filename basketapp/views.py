@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from basketapp.models import Basket
 from mainapp.models import Product
@@ -19,10 +18,8 @@ def basket(request):
 
 
 def basket_add(request, pk_add):
-    product_itm = get_object_or_404(Product, pk=pk_add)
-    print('++++++2++++++')
-    print(product_itm.__dict__)
     # проверка на наличие этого товара в магазине
+    product_itm = get_object_or_404(Product, pk=pk_add)
     basket_itm = Basket.objects.filter(buyer=request.user, product=product_itm).first()
     # если нет, то создаём в корзине
     if not basket_itm:

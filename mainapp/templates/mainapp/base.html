@@ -111,10 +111,10 @@
                         </div>
                         <div class="hearer_icon d-flex align-items-center">
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <a href="{% url 'basket:main' %}">
+                            <a data-placement="bottom" title="{{ basket_itm.0.total_cost|floatformat:0 }} &#8381" href="{% url 'basket:main' %}">
                                 <i class="flaticon-shopping-cart-black-shape"></i>
                                 {% if basket_itm %}
-                                    <span class="badge badge-pill badge-primary ">{{ basket_itm|length }}</span>
+                                    <span class="badge badge-pill badge-primary ">{{ basket_itm.0.total_quantity }}</span>
                                 {% endif %}
                             </a>
                         </div>
