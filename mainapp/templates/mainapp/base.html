@@ -114,7 +114,7 @@
                             <a href="{% url 'basket:main' %}">
                                 <i class="flaticon-shopping-cart-black-shape"></i>
                                 {% if basket_itm %}
-                                    {{ basket_itm|length }}
+                                    <span class="badge badge-pill badge-primary ">{{ basket_itm|length }}</span>
                                 {% endif %}
                             </a>
                         </div>
