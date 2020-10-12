@@ -22,15 +22,15 @@
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="/media/{{ itm.image }}" alt="Фото"/>
+                                                <img src="/media/{{ itm.product.image }}" alt="Фото"/>
                                             </div>
                                             <div class="media-body">
-                                                <p>{{ itm.short_desc }}</p>
+                                                <p>{{ itm.product.short_desc }}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <h5>{{ item.price }}&#8381;</h5>
+                                        <h5>{{ item.product.price }}&#8381;</h5>
                                     </td>
                                     <td>
                                         <div class="product_count">
@@ -45,12 +45,15 @@
                                           <i class="ti-angle-down"></i>
                                         </button> -->
                                             <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                                            <input class="input-number" type="text" value="1" min="0" max="10">
+                                            <input class="input-number" type="text" value="{{ itm.quantity }}" min="0" max="10">
                                             <span class="input-number-increment"> <i class="ti-plus"></i></span>
                                         </div>
                                     </td>
                                     <td>
-                                        <h5>$720.00</h5>
+                                        <h5>{{ itm.product_cost }}&#8381;</h5>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'basket:remove' itm.id %}" class="btn btn-outline-danger">x</a>
                                     </td>
                                 </tr>
                             {% endfor basket_itm %}
@@ -70,10 +73,10 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <h5>Subtotal</h5>
+                                    <h5>Итого:</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5>{{ basket_itm.0.total_cost }}&#8381</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
