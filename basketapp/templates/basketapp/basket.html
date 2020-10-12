@@ -25,7 +25,7 @@
                                                 <img src="/media/{{ itm.product.image }}" alt="Фото"/>
                                             </div>
                                             <div class="media-body">
-                                                <p>{{ itm.product.short_desc }}</p>
+                                                <a href="{% url 'products:single_product' itm.id %}"><p>{{ itm.product.name }}</p></a>
                                             </div>
                                         </div>
                                     </td>

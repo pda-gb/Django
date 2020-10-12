@@ -12,6 +12,8 @@ def login(request):
     # создание формы login на основе стандартной из django
     login_form = BuyerLoginForm(data=request.POST)
 
+    _next = request.GET['next'] if 'next' in request.GET.keys() else ''
+
     if request.method == 'POST' and login_form.is_valid():
         # username = request.POST['username'] так мы доверяем полученным данным
         username = request.POST.get('username')
@@ -19,10 +21,13 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
+            if 'next' in request.POST.keys():
+                return HttpResponseRedirect(request.POST['next'])
             return HttpResponseRedirect(reverse('main'))
     variable_date = {
         'title': title,
         'login_form': login_form,
+        'next': _next
     }
 
     return render(request, 'authapp/login.html', variable_date)
