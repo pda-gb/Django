@@ -48,8 +48,8 @@
                                     <div class="col-lg-5 col-sm-6">
                                         <div class="single_product_content">
                                             <h5>Цена: {{ itm.price }}&#8381;</h5>
-                                            <h2><a href="single-product.html">{{ itm.short_desc|capfirst }}</a></h2>
-                                            <a href="{% url 'products:index' %}" class="btn_3">Подробнее</a>
+                                            <h2><a href="{% url 'mainapp:single_product' itm.id %}">{{ itm.short_desc|capfirst }}</a></h2>
+                                            <a href="{% url 'mainapp:single_product' itm.id %}" class="btn_3">Подробнее</a>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                             <div class="single_product_item_thumb">
                                 <img src="/media/{{ product.image }}" alt="Фото" class="img-fluid">
                             </div>
-                            <h3><a href="single-product.html">{{ product.short_desc|capfirst }}</a></h3>
+                            <h3><a href="{% url 'mainapp:single_product' product.id %}">{{ product.short_desc|capfirst }}</a></h3>
                             <p>Цена: {{ product.price }}&#8381;</p>
                         </div>
                     </div>

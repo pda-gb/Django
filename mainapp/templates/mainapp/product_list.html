@@ -41,10 +41,10 @@
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="single_product_item">
                                         <img src="/media/{{ item.image }}" alt="product" class="img-fluid">
-                                        <h3><a href="single-product.html">{{ item.short_desc }}</a></h3>
+                                        <h3><a href="{% url 'mainapp:single_product' item.id %}">{{ item.short_desc }}</a></h3>
                                         <p>Цена: {{ item.price }}&#8381;</p>
                                         <div class="add_to_cart">
-                                            <a href="{% url 'basket:add' item.id %}" class="btn_3">в корзину</a>
+                                            <a href="{% url 'mainapp:single_product' item.id %}" class="btn_3">подробнее</a>
                                         </div>
                                     </div>
                                 </div>
