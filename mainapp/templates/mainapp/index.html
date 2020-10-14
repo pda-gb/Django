@@ -134,11 +134,8 @@
 
 {% block js %}
     {{ block.super }}
-    <!-- magnific popup js -->
-    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
-    <!-- carousel js -->
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    {% block swiper %}
+    {% endblock swiper %}
 {% endblock js %}
 
 
