@@ -20,6 +20,8 @@ def basket(request):
         'title': title,
         'basket_itm': basket_itm
     }
+    print('+++++#+++++++')
+    print(basket_itm)
     return render(request, 'basketapp/basket.html', variable_date)
 
 
@@ -27,9 +29,13 @@ def basket(request):
 def basket_add(request, pk_add):
     # проверка на наличие этого товара в магазине
     product_itm = get_object_or_404(Product, pk=pk_add)
-    # если нет, то создаём в корзине
+    # проверяем, есть ли такой уже в корзине.
     basket_itm = Basket.objects.filter(buyer=request.user, product=product_itm).first()
+    #  если нет, то создаём в корзине товар-корзинку
+    if not basket_itm:
+        basket_itm = Basket.objects.create(buyer=request.user, product=product_itm)
     # увелич. кол.-во
+
     basket_itm.quantity += 1
     basket_itm.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
