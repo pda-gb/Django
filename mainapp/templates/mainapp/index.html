@@ -16,7 +16,7 @@
                                 pillow</h1>
                             <p>Seamlessly empower fully researched
                                 growth strategies and interoperable internal</p>
-                            <a href="{% url 'products:index' %}" class="btn_1">shop now</a>
+                            <a href="{% url 'products:index' %}" class="btn_1">Найди свою</a>
                         </div>
                     </div>
                 </div>
@@ -36,25 +36,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    {% for itm in obj_products %}
+                    {% for itm in main_products %}
                         <div class="single_product_iner">
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="single_product_img">
-                                        <img src="/media/{{ itm.image }}" class="img-fluid" alt="#">
-                                        <img src="{% static 'img/product_overlay.png' %}" alt="#"
-                                             class="product_overlay img-fluid">
+                                        <img src="/media/{{ itm.image }}" class="img-fluid" alt="Фото">
+                                        <img src="{% static 'img/product_overlay.png' %}" alt="#" class="product_overlay img-fluid">
                                     </div>
                                 </div>
-                                <div class="col-lg-5 col-sm-6">
-                                    <div class="single_product_content">
-                                        <h5>Started from $10</h5>
-                                        {# изменить подпить на short_desc #}
-                                        <h2><a href="single-product.html">{{ itm.short_desc }}</a></h2>
-                                        <a href="{% url 'products:index' %}" class="btn_3">Explore Now</a>
+                                    <div class="col-lg-5 col-sm-6">
+                                        <div class="single_product_content">
+                                            <h5>Цена: {{ itm.price }}&#8381;</h5>
+                                            <h2><a href="{% url 'mainapp:single_product' itm.id %}">{{ itm.short_desc|capfirst }}</a></h2>
+                                            <a href="{% url 'mainapp:single_product' itm.id %}" class="btn_3">Подробнее</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                     {% endfor %}
                 </div>
@@ -71,63 +69,67 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section_tittle text-center">
-                        <h2>Trending Items</h2>
+                        <h2>Самые востребованные товары:</h2>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <div class="single_product_item_thumb">
-                            <img src="{% static 'img/tranding_item/tranding_item_1.png' %}" alt="#" class="img-fluid">
+                {% for product in trending_products %}
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="single_product_item">
+                            <div class="single_product_item_thumb">
+                                <img src="/media/{{ product.image }}" alt="Фото" class="img-fluid">
+                            </div>
+                            <h3><a href="{% url 'mainapp:single_product' product.id %}">{{ product.short_desc|capfirst }}</a></h3>
+                            <p>Цена: {{ product.price }}&#8381;</p>
                         </div>
-                        <h3><a href="single-product.html">Cervical pillow for airplane
-                            car office nap pillow</a></h3>
-                        <p>From $5</p>
                     </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/tranding_item/tranding_item_2.png' %}" alt="#" class="img-fluid">
-                        <h3><a href="single-product.html">Foam filling cotton slow rebound pillows</a></h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/tranding_item/tranding_item_3.png' %}" alt="#" class="img-fluid">
-                        <h3><a href="single-product.html">Memory foam filling cotton Slow rebound pillows</a></h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/tranding_item/tranding_item_4.png' %}" alt="#" class="img-fluid">
-                        <h3><a href="single-product.html">Cervical pillow for airplane
-                            car office nap pillow</a></h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/tranding_item/tranding_item_5.png' %}" alt="#" class="img-fluid">
-                        <h3><a href="single-product.html">Foam filling cotton slow rebound pillows</a></h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-sm-6">
-                    <div class="single_product_item">
-                        <img src="{% static 'img/tranding_item/tranding_item_6.png' %}" alt="#" class="img-fluid">
-                        <h3><a href="single-product.html">Memory foam filling cotton Slow rebound pillows</a></h3>
-                        <p>From $5</p>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
     </section>
     <!-- trending item end-->
 {% endblock trending_item %}
 
+{% block client_review %}
+    <!-- client review part here -->
+    <section class="client_review">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="client_review_slider owl-carousel">
+                        <div class="single_client_review">
+                            <div class="client_img">
+                                <img src="{% static 'img/client.png' %}" alt="#">
+                            </div>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
+                            <h5>- Micky Mouse</h5>
+                        </div>
+                        <div class="single_client_review">
+                            <div class="client_img">
+                                <img src="{% static 'img/client_1.png' %}" alt="#">
+                            </div>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
+                            <h5>- Micky Mouse</h5>
+                        </div>
+                        <div class="single_client_review">
+                            <div class="client_img">
+                                <img src="{% static 'img/client_2.png' %}" alt="#">
+                            </div>
+                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
+                                help alleviate human suffering.</p>
+                            <h5>- Micky Mouse</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- client review part end -->
+{% endblock client_review %}
 
 
 {% block js %}

@@ -1,0 +1,98 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+
+{% block breadcrumb %}
+    <!-- breadcrumb part start-->
+    <section class="breadcrumb_part">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb_iner">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb part end-->
+{% endblock breadcrumb %}
+
+{% block feature %}
+{% endblock feature %}
+
+{% block contact %}
+{% endblock contact %}
+
+{% block product_single %}
+    <!--================Single Product Area =================-->
+    <div class="product_image_area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="product_img_slide owl-carousel">
+                        <div class="single_product_img">
+                            <img src="/media/{{ single_prod.image }}" alt="Фото" class="img-fluid">
+                        </div>
+                        {# для карусели  фото из галереи товара#}
+                        {#              {% for itm in single_prod %}#}
+                        {#                <div class="single_product_img">#}
+                        {#                    <img src="/media/{{ itm.image }}" alt="Фото" class="img-fluid">#}
+                        {#                </div>#}
+                        {#              {% endfor %}#}
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="single_product_text text-center">
+                        <h3>{{ single_prod.name }}</h3>
+                        <p>{{ single_prod.description }}</p>
+                        <div class="card_area">
+                            <div class="product_count_area">
+                                <p>Количество</p>
+                                <div class="product_count d-inline-block">
+                                    <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
+                                    <input class="product_count_item input-number" type="text" value="1" min="0"
+                                           max="10">
+                                    <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
+                                </div>
+                                <p>Цена: {{ single_prod.price }}&#8381;</p>
+                            </div>
+                            <div class="add_to_cart">
+                                <a href="{% url 'basket:add' single_prod.id %}" class="btn_3">В корзину</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================End Single Product Area =================-->
+{% endblock product_single %}
+
+{% block js %}
+    <!-- jquery plugins here-->
+    <script src="{% static 'js/jquery-1.12.1.min.js' %}"></script>
+    <!-- popper js -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- swiper js -->
+    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <!-- swiper js -->
+    <script src="{% static 'js/mixitup.min.js' %}"></script>
+    <!-- particles js -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    <!-- slick js -->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+    <script src="{% static 'js/waypoints.min.js' %}"></script>
+    <script src="{% static 'js/contact.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/jquery.form.js' %}"></script>
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'js/mail-script.js' %}"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js' %}"></script>    <!-- easing js -->
+    <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+
+{% endblock js %}

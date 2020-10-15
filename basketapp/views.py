@@ -1,38 +1,45 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from basketapp.models import Basket
 from mainapp.models import Product
 
 
+def get_authorised_prod(_user):
+    # узнаём кто зашёл, если зареган, выводим количество "товаров-корзинок"
+    _basket_itm = None
+    if not _user.is_anonymous:
+        _basket_itm = Basket.objects.filter(buyer=_user)  # собираем товары из корзины, для отображ. кол.-ва
+    return _basket_itm
+
+
+@login_required
 def basket(request):
     title = 'корзина'
-    basket_itm = Basket.objects.filter(buyer=request.user)
+    basket_itm = get_authorised_prod(request.user)
     variable_date = {
         'title': title,
         'basket_itm': basket_itm
     }
-    print('+++++1++++++')
-    print(basket_itm)
     return render(request, 'basketapp/basket.html', variable_date)
 
 
+@login_required
 def basket_add(request, pk_add):
-    product_itm = get_object_or_404(Product, pk=pk_add)
-    print('++++++2++++++')
-    print(product_itm.__dict__)
     # проверка на наличие этого товара в магазине
-    basket_itm = Basket.objects.filter(buyer=request.user, product=product_itm).first()
+    product_itm = get_object_or_404(Product, pk=pk_add)
     # если нет, то создаём в корзине
-    if not basket_itm:
-        basket_itm = Basket.objects.create(buyer=request.user, product=product_itm)
+    basket_itm = Basket.objects.filter(buyer=request.user, product=product_itm).first()
     # увелич. кол.-во
     basket_itm.quantity += 1
     basket_itm.save()
-    print('+++++3+++++++')
-    print(basket_itm)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
+@login_required
 def basket_remove(request, pk_del):
-    variable_date = {}
-    return render(request, 'basketapp/basket.html', variable_date)
+    rm_product = get_object_or_404(Basket, pk=pk_del)
+    rm_product.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    # print('+++++#+++++++')
+    # print()

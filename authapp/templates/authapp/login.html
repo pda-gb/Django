@@ -26,6 +26,9 @@
                                 Please Sign in now</h3>
                             <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
                                 {% csrf_token %}
+                                {% if next %}
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                {% endif %}
                                 {{ login_form.as_p }}
                                 <div class="col-md-12 form-group">
                                     <div class="creat_account d-flex align-items-center">

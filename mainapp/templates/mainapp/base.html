@@ -111,10 +111,10 @@
                         </div>
                         <div class="hearer_icon d-flex align-items-center">
                             <a id="search_1" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <a href="{% url 'basket:main' %}">
+                            <a data-placement="bottom" title="{{ basket_itm.0.total_cost|floatformat:0 }} &#8381" href="{% url 'basket:main' %}">
                                 <i class="flaticon-shopping-cart-black-shape"></i>
                                 {% if basket_itm %}
-                                    {{ basket_itm|length }}
+                                    <span class="badge badge-pill badge-primary ">{{ basket_itm.0.total_quantity }}</span>
                                 {% endif %}
                             </a>
                         </div>
@@ -164,42 +164,6 @@
 {% endblock trending_item %}
 
 {% block client_review %}
-    <!-- client review part here -->
-    <section class="client_review">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="client_review_slider owl-carousel">
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{% static 'img/client.png' %}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
-                                help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{% static 'img/client_1.png' %}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
-                                help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                        <div class="single_client_review">
-                            <div class="client_img">
-                                <img src="{% static 'img/client_2.png' %}" alt="#">
-                            </div>
-                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to
-                                help alleviate human suffering.</p>
-                            <h5>- Micky Mouse</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- client review part end -->
 {% endblock client_review %}
 
 {% block feature %}
@@ -259,6 +223,9 @@
 
 {% block contact %}
 {% endblock contact %}
+
+{% block product_single %}
+{% endblock product_single %}
 
 {% block subscribe %}
     <!-- subscribe part here -->
