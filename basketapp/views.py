@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.template.loader import render_to_string
-
 from basketapp.models import Basket
 from mainapp.models import Product
 
@@ -53,7 +52,7 @@ def basket_remove(request, pk_del):
 def basket_edit(request, pk, quantity):
     # защита от введения прямой ссылки пользователем
     if request.is_ajax():
-        # для для защиты от возможного преобраз. в стору в JS
+        # для для защиты от возможного преобраз. в сторку в JS
         quantity = int(quantity)
         new_basket_itm = Basket.objects.get(pk=int(pk))
         if quantity > 0:
@@ -64,7 +63,7 @@ def basket_edit(request, pk, quantity):
             new_basket_itm.delete()
         basket_itm = Basket.objects.filter(buyer=request.user)
         variable_date = {
-            'basket': basket_itm
+            'basket_itm': basket_itm
         }
         result = render_to_string('basketapp/includes/inc_basket.html', variable_date)
         return JsonResponse({'result': result})
