@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.template.loader import render_to_string
+from django.urls import reverse
+
 from basketapp.models import Basket
 from mainapp.models import Product
 
@@ -27,6 +29,9 @@ def basket(request):
 
 @login_required
 def basket_add(request, pk_add):
+    # что бы не зациклить авторизацию при добавление продукта в корзину
+    if "login" in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('products:single_product', args=[pk_add]))
     # проверка на наличие этого товара в магазине
     product_itm = get_object_or_404(Product, pk=pk_add)
     # проверяем, есть ли такой уже в корзине.
