@@ -33,7 +33,8 @@ def get_products_in_main_page():
 #     same = Product.objects.filter(category_id='#').exclude(pk='#')[:4]
 #     return same
 
-def get_basket(shop_user):
+def get_basket_itm(shop_user):
+    # создаём пустой оъект корзины
     _basket_itm = None
     if not shop_user.is_anonymous:
         _basket_itm = Basket.objects.filter(buyer=shop_user)  # собираем товары из корзины, для отображ. кол.-ва
@@ -42,7 +43,7 @@ def get_basket(shop_user):
 
 def main(request):
     title = 'Магазин Подушек'
-    basket_itm = get_basket(request.user)  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
+    basket_itm = get_basket_itm(request.user)  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
     main_products = get_products_in_main_page()  # выведем на главной 3  товара
     trending_products = get_trending_product()  # выведем на главной 6 тренд. товара
     variable_date = {
@@ -61,7 +62,7 @@ def products(request, pk_cat=None):
     links_menu_type = ProductType.objects.all()
     links_menu_category = ProductCategory.objects.all()
     products_set = Product.objects.all()
-    basket_itm = get_basket(request.user)
+    basket_itm = get_basket_itm(request.user)
 
     if pk_cat is not None:
         if pk_cat == 0:
@@ -94,7 +95,7 @@ def products(request, pk_cat=None):
 
 def contact(request):
     title = 'Контакты'
-    basket_itm = get_basket(request.user)
+    basket_itm = get_basket_itm(request.user)
     variable_date = {
         'title': title,
         'basket_itm': basket_itm
@@ -105,7 +106,7 @@ def contact(request):
 def single_product(request, pk_prod):
     single_prod = get_object_or_404(Product, pk=pk_prod)
     title = single_prod.name
-    basket_itm = get_basket(request.user)
+    basket_itm = get_basket_itm(request.user)
     variable_date = {
         'title': title,
         'basket_itm': basket_itm,
@@ -114,4 +115,3 @@ def single_product(request, pk_prod):
     print('+++++#+++++++')
     print(single_prod.id)
     return render(request, 'mainapp/single_product.html', variable_date)
-

@@ -11,7 +11,7 @@ def login(request):
     title = 'Вход'
     # создание формы login на основе стандартной из django
     login_form = BuyerLoginForm(data=request.POST)
-
+    # защита от незарегистрир. пользователя
     _next = request.GET['next'] if 'next' in request.GET.keys() else ''
 
     if request.method == 'POST' and login_form.is_valid():
