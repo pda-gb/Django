@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'appconf',  # for connect 'sass'
     'authapp',
     'basketapp',
+    'adminapp',
 ]
 
 MIDDLEWARE = [
