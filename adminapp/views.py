@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 # users ===============
 from authapp.models import Buyer
+from mainapp.models import ProductCategory
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -14,7 +15,7 @@ def users_read(request):
         'title': title,
         'objects': users_list
     }
-    return render(request, 'adminapp/admin.html', content)
+    return render(request, 'adminapp/users.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -61,7 +62,13 @@ def products_delete(request, pk):
 # prod_cat ===============
 @user_passes_test(lambda x: x.is_superuser)
 def prod_cat_read(request):
-    pass
+    title = 'adm/Категории товаров'
+    categories_list = ProductCategory.objects.all()
+    content = {
+        'title': title,
+        'objects': categories_list
+    }
+    return render(request, 'adminapp/users.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
