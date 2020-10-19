@@ -14,3 +14,11 @@
 
 {% block subscribe %}
 {% endblock subscribe %}
+
+{% block js %}
+    {{ block.super }}
+    {% block custom %}
+        <script src="{% static 'js/custom.js' %}"></script>
+        <script src="{% static 'js/admin.js' %}"></script>
+    {% endblock custom %}
+{% endblock js %}
