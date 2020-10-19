@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
 from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct
+from authapp.forms import BuyerRegistyForm, BuyerEditForm
 from authapp.models import Buyer
 from mainapp.models import ProductCategory, ProductType, Product
 
@@ -32,17 +33,51 @@ def users_read(request):
 
 @user_passes_test(lambda x: x.is_superuser)
 def user_create(request):
-    pass
+    title = 'adm/Новый пользователь'
+    if request.method == 'POST':
+        user_form = BuyerRegistyForm(request.POST, request.FILES)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect(reverse('admin:users_read'))
+    else:
+        user_form = BuyerRegistyForm()
+    content = {
+        'title': title,
+        'object': user_form
+    }
+    return render(request, 'adminapp/user.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
 def user_update(request, pk):
-    pass
-
+    title = 'adm/Редактирование пользователя'
+    user = get_object_or_404(Buyer, pk=pk)
+    if request.method == 'POST':
+        user_form = BuyerRegistyForm(request.POST, request.FILES, instance=user)
+        if user_form.is_valid():
+            user_form.save()
+            return HttpResponseRedirect(reverse('admin:user_update', args=[user.pk]))
+    else:
+        user_form = BuyerRegistyForm(instance=user)
+    content = {
+        'title': title,
+        'objects': user_form
+    }
+    return render(request, 'adminapp/user.html', content)
 
 @user_passes_test(lambda x: x.is_superuser)
 def user_delete(request, pk):
-    pass
+    title = 'adm/Удаление пользователя'
+    user = get_object_or_404(Buyer, pk=pk)
+    if request.method == 'POST':
+        user.is_active = False
+        user.save()
+        return HttpResponseRedirect(reverse('admin:users_read'))
+    content = {
+        'title': title,
+        'object_del': user
+    }
+    return render(request, 'adminapp/user_delete.html', content)
 
 
 # products =============== products =============== products =============== products

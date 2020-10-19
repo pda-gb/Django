@@ -1,3 +1,16 @@
 {% extends 'adminapp/base.html' %}
 {% load staticfiles %}
 
+{% block content_adm %}
+    <div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ objects.as_p }}
+            <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
+        </form>
+        <button class="btn btn-outline-info form-control last-related">
+            <a href="{% url 'admin:users_read' %}">Вернуться к пользователям</a>
+        </button>
+    </div>
+
+{% endblock content_adm %}

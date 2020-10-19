@@ -1,14 +1,8 @@
 from django import forms
 
-from authapp.forms import BuyerEditForm
+from authapp.forms import BuyerEditForm, BuyerRegistyForm
 from authapp.models import Buyer
 from mainapp.models import ProductCategory, ProductType, Product
-
-
-class AdminEditFormBuyer(BuyerEditForm):
-    class Meta:
-        model = Buyer
-        fields = '__all__'
 
 
 class AdminEditFormProductCategory(forms.ModelForm):
