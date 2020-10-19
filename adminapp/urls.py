@@ -15,14 +15,14 @@ urlpatterns = [
     path('products/update/<int:pk>/', adminapp.products_update, name='products_update'),
     path('products/delete/<int:pk>/', adminapp.products_delete, name='products_delete'),
 
-    path('prod_cat/create/', adminapp.prod_cat_create, name='prod_cat_create'),
-    path('prod_cat/read/', adminapp.prod_cat_read, name='prod_cats_read'),
-    path('prod_cat/update/<int:pk>/', adminapp.prod_cat_update, name='prod_cat_update'),
-    path('prod_cat/delete/<int:pk>/', adminapp.prod_cat_delete, name='prod_cat_delete'),
+    path('categories/create/', adminapp.prod_cat_read, name='prod_cat_create'),
+    path('categories/read/', adminapp.prod_cat_read, name='prod_cats_read'),
+    path('categories/update/<int:pk>/', adminapp.prod_cat_update, name='prod_cat_update'),
+    path('categories/delete/<int:pk>/', adminapp.prod_cat_delete, name='prod_cat_delete'),
 
-    path('prod_type/create/', adminapp.prod_type_create, name='prod_type_create'),
-    path('prod_type/read/', adminapp.prod_type_read, name='prod_types_read'),
-    path('prod_type/update/<int:pk>/', adminapp.prod_type_update, name='prod_type_update'),
-    path('prod_type/delete/<int:pk>/', adminapp.prod_type_delete, name='prod_type_delete'),
+    path('types/create/', adminapp.prod_type_create, name='prod_type_create'),
+    path('types/read/', adminapp.prod_type_read, name='prod_types_read'),
+    path('types/update/<int:pk>/', adminapp.prod_type_update, name='prod_type_update'),
+    path('types/delete/<int:pk>/', adminapp.prod_type_delete, name='prod_type_delete'),
 
 ]

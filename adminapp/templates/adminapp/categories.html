@@ -1,3 +1,26 @@
 {% extends 'adminapp/base.html' %}
 {% load staticfiles %}
 
+{% block content_adm %}
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in objects %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ object.id }}</td>
+                <td>{{ object.name }}</td>
+                <td>{{ object.description }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock content_adm %}

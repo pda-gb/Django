@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
-
+from django.shortcuts import render, get_object_or_404
 
 # users ===============
 from authapp.models import Buyer
-from mainapp.models import ProductCategory
+from mainapp.models import ProductCategory, ProductType, Product
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -36,12 +35,26 @@ def user_delete(request, pk):
 # products ===============
 @user_passes_test(lambda x: x.is_superuser)
 def products_read(request, pk):
-    pass
+    title = 'adm/товары'
+    categories_itm = get_object_or_404(ProductCategory, pk)
+    product = Product.objects.filter(category=categories_itm)
+    content = {
+        'title': title,
+        'objects': product,
+        'category': categories_itm
+    }
+    return render(request, 'adminapp/product.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
 def product_read(request, pk):
-    pass
+    title = 'adm/товар'
+    product = Product.objects.filter(pk=pk)
+    content = {
+        'title': title,
+        'objects': product
+    }
+    return render(request, 'adminapp/product.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -68,7 +81,7 @@ def prod_cat_read(request):
         'title': title,
         'objects': categories_list
     }
-    return render(request, 'adminapp/users.html', content)
+    return render(request, 'adminapp/categories.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
@@ -89,7 +102,13 @@ def prod_cat_delete(request, pk):
 # prod_type ===============
 @user_passes_test(lambda x: x.is_superuser)
 def prod_type_read(request):
-    pass
+    title = 'adm/Тип материалов товаров'
+    types_list = ProductType.objects.all()
+    content = {
+        'title': title,
+        'objects': types_list
+    }
+    return render(request, 'adminapp/types.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
