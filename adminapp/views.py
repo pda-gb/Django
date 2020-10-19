@@ -1,11 +1,24 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-# users ===============
+from django.urls import reverse
+
+from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct
 from authapp.models import Buyer
 from mainapp.models import ProductCategory, ProductType, Product
 
 
+@user_passes_test(lambda x: x.is_superuser)
+def admin(request):
+    title = 'adm/ Админка'
+    content = {
+        'title': title,
+    }
+    return render(request, 'adminapp/admin.html', content)
+
+
+# users =============== users =============== users =============== users =============== users
 @user_passes_test(lambda x: x.is_superuser)
 def users_read(request):
     title = 'adm/пользователи'
@@ -32,24 +45,22 @@ def user_delete(request, pk):
     pass
 
 
-# products ===============
+# products =============== products =============== products =============== products
 @user_passes_test(lambda x: x.is_superuser)
 def products_read(request, pk):
     title = 'adm/товары'
-    categories_itm = get_object_or_404(ProductCategory, pk)
-    product = Product.objects.filter(category=categories_itm)
+    products = Product.objects.filter(category=pk)
     content = {
         'title': title,
-        'objects': product,
-        'category': categories_itm
+        'objects': products,
     }
-    return render(request, 'adminapp/product.html', content)
+    return render(request, 'adminapp/products.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
 def product_read(request, pk):
     title = 'adm/товар'
-    product = Product.objects.filter(pk=pk)
+    product = Product.objects.filter(pk=pk).first()
     content = {
         'title': title,
         'objects': product
@@ -58,23 +69,58 @@ def product_read(request, pk):
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def products_create(request, pk):
-    pass
+def product_create(request, pk):
+    title = 'adm/Новый товар'
+    if request.method == 'POST':
+        product_form = AdminEditFormProduct(request.POST, request.FILES, instance=pk)
+        if product_form.is_valid():
+            product_form.save()
+            return HttpResponseRedirect(reverse('admin:categories_read'))
+    else:
+        product_form = AdminEditFormProduct()
+    content = {
+        'title': title,
+        'objects': product_form
+    }
+    return render(request, 'adminapp/product.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def products_update(request, pk):
-    pass
+def product_update(request, pk):
+    title = 'adm/Редактирование товара'
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        product_form = AdminEditFormProduct(request.POST, request.FILES, instance=product)
+        if product_form.is_valid():
+            product_form.save()
+            return HttpResponseRedirect(reverse('admin:products_read'))
+    else:
+        product_form = AdminEditFormProductCategory(instance=product)
+    content = {
+        'title': title,
+        'objects': product_form
+    }
+    return render(request, 'adminapp/products.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def products_delete(request, pk):
-    pass
+def product_delete(request, pk):
+    title = 'adm/Удаление товара'
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        product.is_active = False
+        product.save()
+        return HttpResponseRedirect(reverse('admin:product_read'))
+    content = {
+        'title': title,
+        'object_del': product
+    }
+    return render(request, 'adminapp/product_delete.html', content)
 
 
-# prod_cat ===============
+# categories =============== categories =============== categories =============== categories
 @user_passes_test(lambda x: x.is_superuser)
-def prod_cat_read(request):
+def categories_read(request):
     title = 'adm/Категории товаров'
     categories_list = ProductCategory.objects.all()
     content = {
@@ -85,23 +131,58 @@ def prod_cat_read(request):
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_cat_create(request):
-    pass
+def category_create(request):
+    title = 'adm/Новая категория'
+    if request.method == 'POST':
+        category_form = AdminEditFormProductCategory(request.POST, request.FILES)
+        if category_form.is_valid():
+            category_form.save()
+            return HttpResponseRedirect(reverse('admin:categories_read'))
+    else:
+        category_form = AdminEditFormProductCategory()
+    content = {
+        'title': title,
+        'objects': category_form
+    }
+    return render(request, 'adminapp/category.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_cat_update(request, pk):
-    pass
+def category_update(request, pk):
+    title = 'adm/Редактирование категории'
+    category = get_object_or_404(ProductCategory, pk=pk)
+    if request.method == 'POST':
+        category_form = AdminEditFormProductCategory(request.POST, request.FILES, instance=category)
+        if category_form.is_valid():
+            category_form.save()
+            return HttpResponseRedirect(reverse('admin:categories_read'))
+    else:
+        category_form = AdminEditFormProductCategory(instance=category)
+    content = {
+        'title': title,
+        'objects': category_form
+    }
+    return render(request, 'adminapp/category.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_cat_delete(request, pk):
-    pass
+def category_delete(request, pk):
+    title = 'adm/Удаление категории'
+    category = get_object_or_404(ProductCategory, pk=pk)
+    if request.method == 'POST':
+        category.is_active = False
+        category.save()
+        return HttpResponseRedirect(reverse('admin:categories_read'))
+    content = {
+        'title': title,
+        'object_del': category
+    }
+    return render(request, 'adminapp/category_delete.html', content)
 
 
-# prod_type ===============
+# type =============== type =============== type =============== type =============== type
 @user_passes_test(lambda x: x.is_superuser)
-def prod_type_read(request):
+def types_read(request):
     title = 'adm/Тип материалов товаров'
     types_list = ProductType.objects.all()
     content = {
@@ -112,15 +193,50 @@ def prod_type_read(request):
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_type_create(request):
-    pass
+def type_create(request):
+    title = 'adm/Новый тип'
+    if request.method == 'POST':
+        type_form = AdminEditFormProductType(request.POST, request.FILES)
+        if type_form.is_valid():
+            type_form.save()
+            return HttpResponseRedirect(reverse('admin:types_read'))
+    else:
+        type_form = AdminEditFormProductType()
+    content = {
+        'title': title,
+        'objects': type_form
+    }
+    return render(request, 'adminapp/type.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_type_update(request, pk):
-    pass
+def type_update(request, pk):
+    title = 'adm/Редактирование типа'
+    type = get_object_or_404(ProductType, pk=pk)
+    if request.method == 'POST':
+        type_form = AdminEditFormProductType(request.POST, request.FILES, instance=type)
+        if type_form.is_valid():
+            type_form.save()
+            return HttpResponseRedirect(reverse('admin:types_read'))
+    else:
+        type_form = AdminEditFormProductType(instance=type)
+    content = {
+        'title': title,
+        'objects': type_form
+    }
+    return render(request, 'adminapp/category.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def prod_type_delete(request, pk):
-    pass
+def type_delete(request, pk):
+    title = 'adm/Удаление типа'
+    type = get_object_or_404(ProductType, pk=pk)
+    if request.method == 'POST':
+        type.is_active = False
+        type.save()
+        return HttpResponseRedirect(reverse('admin:types_read'))
+    content = {
+        'title': title,
+        'object_del': type
+    }
+    return render(request, 'adminapp/type_delete.html', content)

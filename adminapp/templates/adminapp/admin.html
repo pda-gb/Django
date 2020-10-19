@@ -1,0 +1,9 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block content_adm %}
+    <a href="{% url 'admin:categories_read' %}" class="genric-btn primary rounded">Категории</a>
+    <a href="{% url 'admin:types_read' %}" class="genric-btn primary rounded">Типы</a>
+    <a href="{% url 'admin:category_create' %}" class="genric-btn success circle">+ Создать категорию</a>
+    <a href="{% url 'admin:type_create' %}" class="genric-btn success circle">+ Создать тип</a>
+{% endblock content_adm %}
