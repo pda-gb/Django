@@ -18,12 +18,12 @@
         </thead>
         <tbody>
         {% for object in objects %}
-            <tr data-href="#">
+            <tr data-href="#" bgcolor="{% if not object.is_active %} #fa8072 {% endif %} ">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:user_update' object.pk %}" class="btn badge-primary link-edit"
-                       data-toggle="tooltip" title="Редактировать пользователя">
+                       title="Редактировать пользователя">
                         {{ object.username }}
                     </a>
                 </td>
@@ -44,7 +44,6 @@
                 </td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock content_adm %}

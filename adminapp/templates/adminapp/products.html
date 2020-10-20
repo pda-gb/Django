@@ -22,6 +22,7 @@
         {% for object in objects %}
             <tr data-href="#">
             <tr data-href="{% url 'admin:products_read' object.pk %}" data-toggle="tooltip"
+                bgcolor="{% if not object.is_active %} #fa8072 {% endif %}"
                 title="Выбрать все товары данной категории">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>

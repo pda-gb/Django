@@ -4,8 +4,9 @@ from django.shortcuts import render, get_object_or_404
 
 from django.urls import reverse
 
-from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct
-from authapp.forms import BuyerRegistyForm, BuyerEditForm
+from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct, \
+    AdminEditFormBuyer
+from authapp.forms import BuyerRegistyForm
 from authapp.models import Buyer
 from mainapp.models import ProductCategory, ProductType, Product
 
@@ -43,7 +44,7 @@ def user_create(request):
         user_form = BuyerRegistyForm()
     content = {
         'title': title,
-        'object': user_form
+        'objects': user_form
     }
     return render(request, 'adminapp/user.html', content)
 
@@ -53,17 +54,18 @@ def user_update(request, pk):
     title = 'adm/Редактирование пользователя'
     user = get_object_or_404(Buyer, pk=pk)
     if request.method == 'POST':
-        user_form = BuyerRegistyForm(request.POST, request.FILES, instance=user)
+        user_form = AdminEditFormBuyer(request.POST, request.FILES, instance=user)
         if user_form.is_valid():
             user_form.save()
             return HttpResponseRedirect(reverse('admin:user_update', args=[user.pk]))
     else:
-        user_form = BuyerRegistyForm(instance=user)
+        user_form = AdminEditFormBuyer(instance=user)
     content = {
         'title': title,
         'objects': user_form
     }
     return render(request, 'adminapp/user.html', content)
+
 
 @user_passes_test(lambda x: x.is_superuser)
 def user_delete(request, pk):
@@ -247,14 +249,14 @@ def type_create(request):
 @user_passes_test(lambda x: x.is_superuser)
 def type_update(request, pk):
     title = 'adm/Редактирование типа'
-    type = get_object_or_404(ProductType, pk=pk)
+    type_upd = get_object_or_404(ProductType, pk=pk)
     if request.method == 'POST':
-        type_form = AdminEditFormProductType(request.POST, request.FILES, instance=type)
+        type_form = AdminEditFormProductType(request.POST, request.FILES, instance=type_upd)
         if type_form.is_valid():
             type_form.save()
             return HttpResponseRedirect(reverse('admin:types_read'))
     else:
-        type_form = AdminEditFormProductType(instance=type)
+        type_form = AdminEditFormProductType(instance=type_upd)
     content = {
         'title': title,
         'objects': type_form
@@ -265,13 +267,13 @@ def type_update(request, pk):
 @user_passes_test(lambda x: x.is_superuser)
 def type_delete(request, pk):
     title = 'adm/Удаление типа'
-    type = get_object_or_404(ProductType, pk=pk)
+    type_del = get_object_or_404(ProductType, pk=pk)
     if request.method == 'POST':
-        type.is_active = False
-        type.save()
+        type_del.is_active = False
+        type_del.save()
         return HttpResponseRedirect(reverse('admin:types_read'))
     content = {
         'title': title,
-        'object_del': type
+        'object_del': type_del
     }
     return render(request, 'adminapp/type_delete.html', content)

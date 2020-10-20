@@ -18,7 +18,8 @@
         <tbody>
         {% for object in objects %}
             <tr data-href="{% url 'admin:products_read' object.pk %}" data-toggle="tooltip"
-                title="Выбрать все товары данного типа">
+                title="Выбрать все товары данного типа"
+                bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>

@@ -1,6 +1,18 @@
 {% extends 'mainapp/base.html' %}
 {% load staticfiles %}
 
+{% block css %}
+    {{ block.super }}
+    {% block awesome %}
+        <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    {% endblock awesome %}
+    {% block swiper %}
+    {% endblock swiper %}
+    {% block owl_carousel %}
+    {% endblock owl_carousel %}
+{% endblock css %}
+
 {% block breadcrumb %}
     {{ block.super }}
     <hr class="bg-danger" style="margin-top: 0px; margin-bottom: 0px; border-top-width: 7px;">
@@ -17,8 +29,9 @@
 
 {% block js %}
     {{ block.super }}
-    {% block custom %}
-        <script src="{% static 'js/custom.js' %}"></script>
-        <script src="{% static 'js/admin.js' %}"></script>
-    {% endblock custom %}
+    <script src="{% static 'js/admin.js' %}"></script>
+    {% block swiper_js %}
+    {% endblock swiper_js %}
+    {% block popper %}
+    {% endblock popper %}
 {% endblock js %}
