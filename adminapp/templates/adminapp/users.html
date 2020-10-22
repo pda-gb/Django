@@ -1,0 +1,50 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block content_adm %}
+    <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
+    <a href="{% url 'admin:user_create' %}" class="genric-btn success circle">+ Создать пользователя</a>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">username</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Доступ</th>
+            <th scope="col">Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in objects %}
+            <tr data-href="#" bgcolor="{% if not object.is_active %} #fa8072 {% endif %} ">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ object.id }}</td>
+                <td>
+                    <a href="{% url 'admin:user_update' object.pk %}" class="btn badge-primary link-edit"
+                       title="Редактировать пользователя">
+                        {{ object.username }}
+                    </a>
+                </td>
+                <td>{{ object.first_name }}</td>
+                <td>{{ object.last_name }}</td>
+                <td>
+                    {% if object.is_active %}
+                        Разрешён
+                    {% else %}
+                        Запрещён
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'admin:user_delete' object.pk %}" class="btn badge-danger link-edit"
+                       data-toggle="tooltip" title="Удалить пользователя">
+                        x
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content_adm %}
+

@@ -35,7 +35,9 @@
             <h5>{{ itm.product_cost }}&#8381;</h5>
         </td>
         <td>
-            <a href="{% url 'basket:remove' itm.id %}" class="btn btn-outline-danger">X</a>
+            <a href="{% url 'basket:remove' itm.id %}" >
+                <span class="btn btn-outline-danger ti-close"></span>
+            </a>
         </td>
     </tr>
 {% endfor basket_itm %}

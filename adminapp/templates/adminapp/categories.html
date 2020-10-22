@@ -1,0 +1,42 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block content_adm %}
+        <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
+    <a href="{% url 'admin:category_create' %}" class="genric-btn success circle">+ Создать категорию</a>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in objects %}
+            <tr data-href="{% url 'admin:products_read' object.id %}" data-toggle="tooltip"
+                title="Выбрать все товары данной категории"
+                bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ object.id }}</td>
+                <td>
+                    <a href="{% url 'admin:category_update' object.pk %}" class="btn badge-primary link-edit"
+                       data-toggle="tooltip" title="Редактировать категорию">
+                        {{ object.name }}
+                    </a>
+                </td>
+                <td>{{ object.description }}</td>
+                <td>
+                    <a href="{% url 'admin:category_delete' object.pk %}" class="btn badge-danger link-edit"
+                       data-toggle="tooltip" title="Удалить категорию">
+                        x
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock content_adm %}

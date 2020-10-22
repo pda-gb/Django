@@ -169,6 +169,9 @@
 {% block product_list %}
 {% endblock product_list %}
 
+{% block content_adm %}
+{% endblock content_adm %}
+
 {% block trending_item %}
 {% endblock trending_item %}
 
@@ -337,10 +340,10 @@
         <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     {% endblock carousel %}
 
-    {% block swiper %}
+    {% block swiper_js %}
         <script src="{% static 'js/swiper.min.js' %}"></script>
         <script src="{% static 'js/mixitup.min.js' %}"></script>
-    {% endblock swiper %}
+    {% endblock swiper_js %}
 
     {% block slick %}
         <script src="{% static 'js/slick.min.js' %}"></script>
