@@ -4,12 +4,20 @@
 {% block content_adm %}
     <div>
         Уверены, что хотите удалить товар: <strong>{{ object_del.name }}</strong>?
-        <form action="{% url 'admin:product_delete' object_del.pk %} " method="post">
+        {% if title %}
+        <form action="{% url 'admin:product_ct_delete' pk_category object_del.pk %} " method="post">
+            {% else %}
+        <form action="{% url 'admin:product_tp_delete' pk_type object_del.pk %} " method="post">
+        {% endif %}
             {% csrf_token %}
             <input type="submit" value="удалить" class="btn btn-danger">
         </form>
         <button class="btn btn-success">
-            <a href="{% url 'admin:products_read' %}">отмена</a>
+            {% if pk_category %}
+                <a href="{% url 'admin:products_category_read' pk_category %}">отмена</a>
+            {% else %}
+                <a href="{% url 'admin:products_type_read' pk_type %}">отмена</a>
+            {% endif %}
 
         </button>
     </div>

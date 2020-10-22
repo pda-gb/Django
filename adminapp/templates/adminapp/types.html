@@ -4,7 +4,7 @@
 {% block content_adm %}
         <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
     <a href="{% url 'admin:type_create' %}" class="genric-btn success circle">+ Создать тип</a>
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         {% for object in objects %}
-            <tr data-href="{% url 'admin:products_read' object.pk %}" data-toggle="tooltip"
+            <tr data-href="{% url 'adminapp:products_type_read' object.pk %}" data-toggle="tooltip"
                 title="Выбрать все товары данного типа"
                 bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>

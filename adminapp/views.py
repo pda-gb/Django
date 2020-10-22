@@ -1,7 +1,6 @@
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-
 from django.urls import reverse
 
 from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct, \
@@ -53,6 +52,7 @@ def user_create(request):
 def user_update(request, pk):
     title = 'adm/Редактирование пользователя'
     user = get_object_or_404(Buyer, pk=pk)
+
     if request.method == 'POST':
         user_form = AdminEditFormBuyer(request.POST, request.FILES, instance=user)
         if user_form.is_valid():
@@ -62,7 +62,7 @@ def user_update(request, pk):
         user_form = AdminEditFormBuyer(instance=user)
     content = {
         'title': title,
-        'objects': user_form
+        'objects': user_form,
     }
     return render(request, 'adminapp/user.html', content)
 
@@ -84,40 +84,48 @@ def user_delete(request, pk):
 
 # products =============== products =============== products =============== products
 @user_passes_test(lambda x: x.is_superuser)
-def products_read(request, pk):
-    title = 'adm/товары'
+def products_category_read(request, pk):
+    title = 'adm/товары категории'
     products = Product.objects.filter(category=pk)
+    pk_category = products[0].category_id
     content = {
         'title': title,
-        'objects': products,
+        'objects_of_category': products,  # загружать на странице сипсок  по категориям
+        'objects_of_type': None,  # не загружать на странице сипсок  по типам
+        'pk_category': pk_category  # для передачи pk категории в шаблон, что бы  потомвернуться к списку товаров
     }
     return render(request, 'adminapp/products.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def product_read(request, pk):
-    title = 'adm/товар'
-    product = Product.objects.filter(pk=pk).first()
+def products_type_read(request, pk):
+    title = 'adm/товары типа'
+    products = Product.objects.filter(type=pk)
+    pk_type = products[0].type_id
     content = {
         'title': title,
-        'objects': product
+        'objects_of_type': products,
+        'objects_of_category': None,
+        'pk_type': pk_type
     }
-    return render(request, 'adminapp/product.html', content)
+    return render(request, 'adminapp/products.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
 def product_create(request, pk):
     title = 'adm/Новый товар'
+    category = get_object_or_404(ProductCategory, pk=pk)
     if request.method == 'POST':
-        product_form = AdminEditFormProduct(request.POST, request.FILES, instance=pk)
+        product_form = AdminEditFormProduct(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
-            return HttpResponseRedirect(reverse('admin:categories_read'))
+            return HttpResponseRedirect(reverse('admin:products_category_read', args=[pk]))
     else:
-        product_form = AdminEditFormProduct()
+        product_form = AdminEditFormProduct(initial={'category': category})
     content = {
         'title': title,
-        'objects': product_form
+        'objects': product_form,
+        'pk_category': category.pk
     }
     return render(request, 'adminapp/product.html', content)
 
@@ -126,31 +134,50 @@ def product_create(request, pk):
 def product_update(request, pk):
     title = 'adm/Редактирование товара'
     product = get_object_or_404(Product, pk=pk)
+    pk_category = product.category_id
     if request.method == 'POST':
         product_form = AdminEditFormProduct(request.POST, request.FILES, instance=product)
         if product_form.is_valid():
             product_form.save()
-            return HttpResponseRedirect(reverse('admin:products_read'))
+            return HttpResponseRedirect(reverse('admin:product_update', args=[product.pk]))
     else:
-        product_form = AdminEditFormProductCategory(instance=product)
+        product_form = AdminEditFormProduct(instance=product)
     content = {
         'title': title,
-        'objects': product_form
+        'objects': product_form,
+        'pk_category': pk_category,
     }
-    return render(request, 'adminapp/products.html', content)
+    return render(request, 'adminapp/product.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def product_delete(request, pk):
+def product_tp_delete(request, pk, pk_type):
     title = 'adm/Удаление товара'
     product = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         product.is_active = False
         product.save()
-        return HttpResponseRedirect(reverse('admin:product_read'))
+        return HttpResponseRedirect(reverse('admin:products_type_read', args=[pk_type]))
     content = {
         'title': title,
-        'object_del': product
+        'object_del': product,
+        'pk_type': product.type
+    }
+    return render(request, 'adminapp/product_delete.html', content)
+
+
+@user_passes_test(lambda x: x.is_superuser)
+def product_ct_delete(request, pk, pk_category):
+    title = 'adm/Удаление товара'
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        product.is_active = False
+        product.save()
+        return HttpResponseRedirect(reverse('admin:products_category_read', args=[pk_category]))
+    content = {
+        'title': title,
+        'object_del': product,
+        'pk_category': pk_category
     }
     return render(request, 'adminapp/product_delete.html', content)
 
@@ -261,7 +288,7 @@ def type_update(request, pk):
         'title': title,
         'objects': type_form
     }
-    return render(request, 'adminapp/category.html', content)
+    return render(request, 'adminapp/type.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
