@@ -161,7 +161,7 @@ def product_tp_delete(request, pk, pk_type):
     content = {
         'title': title,
         'object_del': product,
-        'pk_type': product.type
+        'pk_type': pk_type
     }
     return render(request, 'adminapp/product_delete.html', content)
 

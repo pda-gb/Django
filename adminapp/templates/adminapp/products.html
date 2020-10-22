@@ -26,13 +26,12 @@
         <tbody>
         {#        цикл загружается когда продукты выбраны по типу#}
         {% for object in objects_of_type %}
-            <tr bgcolor="{% if not object.is_active %} #fa8072 {% endif %}"
-                title="Выбрать все товары данного типа">
+            <tr bgcolor="{% if not object.is_active %} #fa8072{% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:product_update' object.pk %}" class="btn badge-primary link-edit"
-                       data-toggle="tooltip" title="Редактировать товар">
+                       title="Редактировать товар">
                         {{ object.name }}
                     </a>
                 </td>
@@ -43,21 +42,22 @@
                 <td>{{ object.price }}</td>
                 <td>
                     <a href="{% url 'admin:product_tp_delete' pk_type object.pk %}" class="btn badge-danger link-edit"
-                       data-toggle="tooltip" title="Удалить тип">
+                       title="Удалить тип">
                         x
                     </a>
                 </td>
             </tr>
+            <h4>objects_of_type</h4>
         {% endfor %}
 
         {#        цикл загружается когда продукты выбраны по категории#}
         {% for object in objects_of_category %}
-            <tr bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
+            <tr bgcolor="{% if not object.is_active %}#fa8072 {% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:product_update' object.pk %}" class="btn badge-primary link-edit"
-                       data-toggle="tooltip" title="Редактировать товар">
+                       title="Редактировать товар">
                         {{ object.name }}
                     </a>
                 </td>
@@ -67,13 +67,16 @@
                 <td>{{ object.quantity }}</td>
                 <td>{{ object.price }}</td>
                 <td>
-                    <a href="{% url 'adminapp:product_ct_delete' pk_category object.pk %}" class="btn badge-danger link-edit"
-                       data-toggle="tooltip" title="Удалить категорию">
+                    <a href="{% url 'adminapp:product_ct_delete' pk_category object.pk %}"
+                       class="btn badge-danger link-edit"
+                       title="Удалить категорию">
                         x
                     </a>
                 </td>
             </tr>
+            <h4>objects_of_category</h4>
         {% endfor %}
+        <h3>pk_category:{{ pk_category }} pk_type:{{ pk_type }}</h3>
 
         </tbody>
     </table>

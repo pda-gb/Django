@@ -16,21 +16,21 @@
         </thead>
         <tbody>
         {% for object in objects %}
-            <tr data-href="{% url 'admin:products_category_read' object.id %}" data-toggle="tooltip"
+            <tr data-href="{% url 'admin:products_category_read' object.id %}" 
                 title="Выбрать все товары данной категории"
                 bgcolor="{% if not object.is_active %}#fa8072{% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:category_update' object.pk %}" class="btn badge-primary link-edit"
-                       data-toggle="tooltip" title="Редактировать категорию">
+                        title="Редактировать категорию">
                         {{ object.name }}
                     </a>
                 </td>
                 <td>{{ object.description }}</td>
                 <td>
                     <a href="{% url 'admin:category_delete' object.pk %}" class="btn badge-danger link-edit"
-                       data-toggle="tooltip" title="Удалить категорию">
+                        title="Удалить категорию">
                         x
                     </a>
                 </td>
