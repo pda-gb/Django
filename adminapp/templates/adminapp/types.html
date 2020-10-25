@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-        <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
+    <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
     <a href="{% url 'admin:type_create' %}" class="genric-btn success circle">+ Создать тип</a>
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -17,23 +17,28 @@
         </thead>
         <tbody>
         {% for object in objects %}
-            <tr data-href="{% url 'adminapp:products_type_read' object.pk %}" 
+            <tr data-href="{% url 'adminapp:products_type_read' object.pk %}"
                 title="Выбрать все товары данного типа"
                 bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:type_update' object.pk %}" class="btn badge-primary link-edit"
-                        title="Редактировать тип">
+                       title="Редактировать тип">
                         {{ object.name }}
                     </a>
                 </td>
                 <td>{{ object.description }}</td>
                 <td>
-                    <a href="{% url 'admin:type_delete' object.pk %}" class="btn badge-danger link-edit"
-                        title="Удалить тип">
-                        x
-                    </a>
+                    {% if object.is_active %}
+                        <a href="{% url 'admin:type_delete' object.pk %}"
+                           class="btn btn-outline-danger ti-trash link-edit"
+                           title="Удалить тип"></a>
+                    {% else %}
+                        <a href="{% url 'admin:type_delete' object.pk %}"
+                           class="btn badge-success ti-plus link-edit"
+                           title="Восстановить тип"></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

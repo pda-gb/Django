@@ -71,15 +71,21 @@ def user_update(request, pk):
 def user_delete(request, pk):
     title = 'adm/Удаление пользователя'
     user = get_object_or_404(Buyer, pk=pk)
-    if request.method == 'POST':
-        user.is_active = False
+    if user.is_active is True:
+        if request.method == 'POST':
+            user.is_active = False
+            user.save()
+            return HttpResponseRedirect(reverse('admin:users_read'))
+        content = {
+            'title': title,
+            'object_del': user
+        }
+        return render(request, 'adminapp/user_delete.html', content)
+    else:
+        # if request.method == 'POST':
+        user.is_active = True
         user.save()
         return HttpResponseRedirect(reverse('admin:users_read'))
-    content = {
-        'title': title,
-        'object_del': user
-    }
-    return render(request, 'adminapp/user_delete.html', content)
 
 
 # products =============== products =============== products =============== products
@@ -154,32 +160,44 @@ def product_update(request, pk):
 def product_tp_delete(request, pk, pk_type):
     title = 'adm/Удаление товара'
     product = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        product.is_active = False
+    if product.is_active is True:
+        if request.method == 'POST':
+            product.is_active = False
+            product.save()
+            return HttpResponseRedirect(reverse('admin:products_type_read', args=[pk_type]))
+        content = {
+            'title': title,
+            'object_del': product,
+            'pk_type': pk_type
+        }
+        return render(request, 'adminapp/product_delete.html', content)
+    else:
+        # if request.method == 'POST':
+        product.is_active = True
         product.save()
         return HttpResponseRedirect(reverse('admin:products_type_read', args=[pk_type]))
-    content = {
-        'title': title,
-        'object_del': product,
-        'pk_type': pk_type
-    }
-    return render(request, 'adminapp/product_delete.html', content)
 
 
 @user_passes_test(lambda x: x.is_superuser)
 def product_ct_delete(request, pk, pk_category):
     title = 'adm/Удаление товара'
     product = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        product.is_active = False
+    if product.is_active is True:
+        if request.method == 'POST':
+            product.is_active = False
+            product.save()
+            return HttpResponseRedirect(reverse('admin:products_category_read', args=[pk_category]))
+        content = {
+            'title': title,
+            'object_del': product,
+            'pk_category': pk_category
+        }
+        return render(request, 'adminapp/product_delete.html', content)
+    else:
+        # if request.method == 'POST':
+        product.is_active = True
         product.save()
         return HttpResponseRedirect(reverse('admin:products_category_read', args=[pk_category]))
-    content = {
-        'title': title,
-        'object_del': product,
-        'pk_category': pk_category
-    }
-    return render(request, 'adminapp/product_delete.html', content)
 
 
 # categories =============== categories =============== categories =============== categories
@@ -233,15 +251,21 @@ def category_update(request, pk):
 def category_delete(request, pk):
     title = 'adm/Удаление категории'
     category = get_object_or_404(ProductCategory, pk=pk)
-    if request.method == 'POST':
-        category.is_active = False
+    if category.is_active is True:
+        if request.method == 'POST':
+            category.is_active = False
+            category.save()
+            return HttpResponseRedirect(reverse('admin:categories_read'))
+        content = {
+            'title': title,
+            'object_del': category
+        }
+        return render(request, 'adminapp/category_delete.html', content)
+    else:
+        # if request.method == 'POST':
+        category.is_active = True
         category.save()
         return HttpResponseRedirect(reverse('admin:categories_read'))
-    content = {
-        'title': title,
-        'object_del': category
-    }
-    return render(request, 'adminapp/category_delete.html', content)
 
 
 # type =============== type =============== type =============== type =============== type
@@ -295,12 +319,18 @@ def type_update(request, pk):
 def type_delete(request, pk):
     title = 'adm/Удаление типа'
     type_del = get_object_or_404(ProductType, pk=pk)
-    if request.method == 'POST':
-        type_del.is_active = False
+    if type_del.is_active is True:
+        if request.method == 'POST':
+            type_del.is_active = False
+            type_del.save()
+            return HttpResponseRedirect(reverse('admin:types_read'))
+        content = {
+            'title': title,
+            'object_del': type_del
+        }
+        return render(request, 'adminapp/type_delete.html', content)
+    else:
+        # if request.method == 'POST':
+        type_del.is_active = True
         type_del.save()
         return HttpResponseRedirect(reverse('admin:types_read'))
-    content = {
-        'title': title,
-        'object_del': type_del
-    }
-    return render(request, 'adminapp/type_delete.html', content)

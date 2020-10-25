@@ -71,11 +71,15 @@
                 <td>{{ object.quantity }}</td>
                 <td>{{ object.price }}</td>
                 <td>
-                    <a href="{% url 'adminapp:product_ct_delete' pk_category object.pk %}"
-                       class="btn badge-danger link-edit"
-                       title="Удалить категорию">
-                        x
-                    </a>
+                    {% if object.is_active %}
+                        <a href="{% url 'admin:product_ct_delete' pk_category object.pk %}"
+                           class="btn btn-outline-danger ti-trash link-edit"
+                           title="Удалить товар"></a>
+                    {% else %}
+                        <a href="{% url 'admin:product_ct_delete' pk_category object.pk %}"
+                           class="btn badge-success ti-plus link-edit"
+                           title="Восстановить товар"></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
