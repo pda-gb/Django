@@ -6,10 +6,8 @@
         Уверены, что хотите удалить товар: <strong>{{ object_del.name }}</strong>?
         {% if pk_category %}
             <form action="{% url 'admin:product_ct_delete' pk_category object_del.pk %} " method="post">
-            <h5>pk_category:{{ pk_category }}  pk_type:{{ pk_type }}   | object_del.pk: {{ object_del.pk }} </h5>
         {% else %}
             <form action="{% url 'admin:product_tp_delete' pk_type object_del.pk %} " method="post">
-            <h5>pk_category:{{ pk_category }}  pk_type:{{ pk_type }}   | object_del.pk: {{ object_del.pk }} </h5>
         {% endif %}
         {% csrf_token %}
         <input type="submit" value="удалить" class="btn btn-danger">
@@ -21,7 +19,6 @@
                 <a href="{% url 'admin:products_type_read' pk_type %}">отмена</a>
             {% endif %}
         </button>
-        <h3>pk_category:{{ pk_category }}  pk_type:{{ pk_type }}   | object_del.pk: {{ object_del.pk }} </h3>
     </div>
 
 {% endblock content_adm %}

@@ -41,13 +41,17 @@
                 <td>{{ object.quantity }}</td>
                 <td>{{ object.price }}</td>
                 <td>
-                    <a href="{% url 'admin:product_tp_delete' pk_type object.pk %}" class="btn badge-danger link-edit"
-                       title="Удалить тип">
-                        x
-                    </a>
+                    {% if object.is_active %}
+                        <a href="{% url 'admin:product_tp_delete' pk_type object.pk %}"
+                           class="btn badge-danger ti-trash link-edit"
+                           title="Удалить товар"></a>
+                    {% else %}
+                        <a href="{% url 'admin:product_tp_delete' pk_type object.pk %}"
+                           class="btn badge-success ti-plus link-edit"
+                           title="Восстановить товар"></a>
+                    {% endif %}
                 </td>
             </tr>
-            <h4>objects_of_type</h4>
         {% endfor %}
 
         {#        цикл загружается когда продукты выбраны по категории#}
@@ -74,9 +78,7 @@
                     </a>
                 </td>
             </tr>
-            <h4>objects_of_category</h4>
         {% endfor %}
-        <h3>pk_category:{{ pk_category }} pk_type:{{ pk_type }}</h3>
 
         </tbody>
     </table>
