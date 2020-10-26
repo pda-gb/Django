@@ -93,7 +93,9 @@ def user_delete(request, pk):
 def products_category_read(request, pk):
     title = 'adm/товары категории'
     products = Product.objects.filter(category=pk)
-    pk_category = products[0].category_id
+    if products.exists():
+        pk_category = products[0].category_id
+    pk_category = pk
     content = {
         'title': title,
         'objects_of_category': products,  # загружать на странице сипсок  по категориям
@@ -107,7 +109,9 @@ def products_category_read(request, pk):
 def products_type_read(request, pk):
     title = 'adm/товары типа'
     products = Product.objects.filter(type=pk)
-    pk_type = products[0].type_id
+    if products.exists():
+        pk_type = products[0].type_id
+    pk_type = pk
     content = {
         'title': title,
         'objects_of_type': products,
