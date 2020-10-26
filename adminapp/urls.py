@@ -29,6 +29,7 @@ urlpatterns = [
 
     path('types/create/', adminapp.type_create, name='type_create'),
     path('types/read/', adminapp.types_read, name='types_read'),
+    path('types/read/page/<page>/', adminapp.types_read, name='types_read_page'),
     path('types/update/<int:pk>/', adminapp.type_update, name='type_update'),
     path('types/delete/<int:pk>/', adminapp.type_delete, name='type_delete'),
 

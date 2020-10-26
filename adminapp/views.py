@@ -288,12 +288,13 @@ def category_delete(request, pk):
 
 # type =============== type =============== type =============== type =============== type
 @user_passes_test(lambda x: x.is_superuser)
-def types_read(request):
+def types_read(request, page=1):
     title = 'adm/Тип материалов товаров'
     types_list = ProductType.objects.all()
+    types_list_page = get_paginator_page(types_list, page)
     content = {
         'title': title,
-        'objects': types_list
+        'objects': types_list_page
     }
     return render(request, 'adminapp/types.html', content)
 
