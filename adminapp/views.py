@@ -35,7 +35,7 @@ def get_paginator_page(_objs, _page):
 @user_passes_test(lambda x: x.is_superuser)
 def users_read(request, page=1):
     title = 'adm/пользователи'
-    users_list = Buyer.objects.all()
+    users_list = Buyer.objects.all().order_by('-is_active', '-is_superuser', 'username', 'first_name', 'last_name')
     users_list_paginator = get_paginator_page(users_list, page)
     content = {
         'title': title,
@@ -105,7 +105,7 @@ def user_delete(request, pk):
 @user_passes_test(lambda x: x.is_superuser)
 def products_category_read(request, pk, page=1):
     title = 'adm/товары категории'
-    products = Product.objects.filter(category=pk)
+    products = Product.objects.filter(category=pk).order_by('-is_active', 'name')
     products_page = get_paginator_page(products, page)
     # if products.exists():
     #     pk_category = products[0].category_id
@@ -122,7 +122,7 @@ def products_category_read(request, pk, page=1):
 @user_passes_test(lambda x: x.is_superuser)
 def products_type_read(request, pk, page=1):
     title = 'adm/товары типа'
-    products = Product.objects.filter(type=pk)
+    products = Product.objects.filter(type=pk).order_by('-is_active', 'name')
     products_page = get_paginator_page(products, page)
     # if products.exists():
     #     pk_type = products[0].type_id
@@ -223,7 +223,7 @@ def product_ct_delete(request, pk, pk_category):
 @user_passes_test(lambda x: x.is_superuser)
 def categories_read(request, page=1):
     title = 'adm/Категории товаров'
-    categories_list = ProductCategory.objects.all()
+    categories_list = ProductCategory.objects.all().order_by('-is_active', 'name')
     categories_list_page = get_paginator_page(categories_list, page)
     content = {
         'title': title,
@@ -292,7 +292,7 @@ def category_delete(request, pk):
 @user_passes_test(lambda x: x.is_superuser)
 def types_read(request, page=1):
     title = 'adm/Тип материалов товаров'
-    types_list = ProductType.objects.all()
+    types_list = ProductType.objects.all().order_by('-is_active', 'name')
     types_list_page = get_paginator_page(types_list, page)
     content = {
         'title': title,
