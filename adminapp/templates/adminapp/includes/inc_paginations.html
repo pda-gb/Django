@@ -1,0 +1,21 @@
+    <nav aria-label="Page navigation example" style="padding-bottom: 1em; padding-top: 1em;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                {% if objects.has_previous %}
+                    <a href="{% url 'admin:users_read_page'  objects.previous_page_number %}"
+                       class="page-link genric-btn primary">Назад</a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                                    <span class="page-link genric-btn primary">
+                                        страница {{ objects.number }} из {{ objects.paginator.num_pages }}
+                                    </span>
+            </li>
+            <li class="page-item">
+                {% if objects.has_next %}
+                    <a href="{% url 'admin:users_read_page' objects.next_page_number %}"
+                       class="page-link genric-btn primary">Вперёд</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>

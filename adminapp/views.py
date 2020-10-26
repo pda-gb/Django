@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -19,14 +20,26 @@ def admin(request):
     return render(request, 'adminapp/admin.html', content)
 
 
+def get_paginator_page(_objs, _page):
+    _paginator = Paginator(_objs, 2)
+    try:  # вывести страницу продуктов номер page
+        _objs_paginator = _paginator.page(_page)
+    except PageNotAnInteger:  # если страница не целое число, то вывести первую
+        _objs_paginator = _paginator.page(1)
+    except EmptyPage:  # если больше максимальной, то последнюю
+        _objs_paginator = _paginator.page(_paginator.num_pages)
+    return _objs_paginator
+
+
 # users =============== users =============== users =============== users =============== users
 @user_passes_test(lambda x: x.is_superuser)
-def users_read(request):
+def users_read(request, page=1):
     title = 'adm/пользователи'
     users_list = Buyer.objects.all()
+    users_list_paginator = get_paginator_page(users_list, page)
     content = {
         'title': title,
-        'objects': users_list
+        'objects': users_list_paginator
     }
     return render(request, 'adminapp/users.html', content)
 

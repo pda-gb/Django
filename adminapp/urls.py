@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('users/create/', adminapp.user_create, name='user_create'),
     path('users/read/', adminapp.users_read, name='users_read'),
+    path('users/read/page/<page>/', adminapp.users_read, name='users_read_page'),
     path('users/update/<int:pk>/', adminapp.user_update, name='user_update'),
     path('users/delete/<int:pk>/', adminapp.user_delete, name='user_delete'),
 

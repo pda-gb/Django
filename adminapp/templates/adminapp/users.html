@@ -4,6 +4,7 @@
 {% block content_adm %}
     <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
     <a href="{% url 'admin:user_create' %}" class="genric-btn success circle">+ Создать пользователя</a>
+    {% include 'adminapp/includes/inc_paginations.html' %}
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
