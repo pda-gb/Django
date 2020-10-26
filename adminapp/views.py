@@ -219,12 +219,13 @@ def product_ct_delete(request, pk, pk_category):
 
 # categories =============== categories =============== categories =============== categories
 @user_passes_test(lambda x: x.is_superuser)
-def categories_read(request):
+def categories_read(request, page=1):
     title = 'adm/Категории товаров'
     categories_list = ProductCategory.objects.all()
+    categories_list_page = get_paginator_page(categories_list, page)
     content = {
         'title': title,
-        'objects': categories_list
+        'objects': categories_list_page
     }
     return render(request, 'adminapp/categories.html', content)
 
