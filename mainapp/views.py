@@ -1,6 +1,8 @@
 import random
+
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
-from authapp.models import Buyer
+
 from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory, ProductType
 
@@ -10,7 +12,7 @@ def get_trending_product():
     Trending products in main page
     :return:
     """
-    _products = Product.objects.all()
+    _products = Product.objects.filter(is_active=True)
     trend = random.sample(list(_products), 6)  # [0]
     return trend
 
@@ -20,7 +22,7 @@ def get_products_in_main_page():
     3 products in main page of main category only
     :return: 
     """
-    main_prod = random.sample(list(Product.objects.filter(category_id=1)), 3)
+    main_prod = random.sample(list(Product.objects.filter(category_id=1, is_active=True)), 3)
     return main_prod
 
 
@@ -55,29 +57,48 @@ def main(request):
     return render(request, 'mainapp/index.html', variable_date)
 
 
+def get_paginator_page(_products, _page):
+    _paginator = Paginator(_products, 4)
+    try:  # вывести страницу продуктов номер page
+        _products_paginator = _paginator.page(_page)
+    except PageNotAnInteger:  # если страница не целое число, то вывести первую
+        _products_paginator = _paginator.page(1)
+    except EmptyPage:  # если больше максимальной, то последнюю
+        _products_paginator = _paginator.page(_paginator.num_pages)
+    return _products_paginator
+
 # сделать фильтрацию по типам последовательно после категорий
 # добавить третье меню для выбора типа и направления сортировки (название, цена, скидки)
-def products(request, pk_cat=None):
+def products(request, pk_cat=None, page=1):
     title = 'Товары'
-    links_menu_type = ProductType.objects.all()
-    links_menu_category = ProductCategory.objects.all()
-    products_set = Product.objects.all()
+    links_menu_type = ProductType.objects.filter(is_active=True)
+    links_menu_category = ProductCategory.objects.filter(is_active=True)
     basket_itm = get_basket_itm(request.user)
+
+    if pk_cat is None:
+        products_set = Product.objects.filter(is_active=True, category__is_active=True)
+        products_paginator = get_paginator_page(products_set, page)
 
     if pk_cat is not None:
         if pk_cat == 0:
-            category_of_products_set = {
-                "name": "все!"}  # при выборе дрю категории или заходе на продукты, эта строка не загружается
+            # при выборе дрю категории или заходе на продукты, эта строка не загружается
+            category_of_products_set = {"name": "все!"}
+            products_set = Product.objects.filter(is_active=True, category__is_active=True)
+            products_paginator = get_paginator_page(products_set, page)
             # type_of_products_set = {"name": "все"}
         else:
             category_of_products_set = get_object_or_404(ProductCategory, pk=pk_cat)
             # type_of_products_set = get_object_or_404(ProductType, pk= #_key)
-            products_set = Product.objects.all().filter(category=category_of_products_set)
+            products_set = Product.objects.filter(category=category_of_products_set, is_active=True,
+                                                  category__is_active=True)
+            products_paginator = get_paginator_page(products_set, page)
+
         variable_date = {
             'title': title,
+            'pk_cat': pk_cat,
             'links_menu_category': links_menu_category,
             'links_menu_type': links_menu_type,
-            "products_set": products_set,
+            "products_set": products_paginator,
             'category_of_products_set': category_of_products_set,
             'basket_itm': basket_itm
         }
@@ -85,9 +106,10 @@ def products(request, pk_cat=None):
 
     variable_date = {
         'title': title,
+        'pk_cat': pk_cat,
         'links_menu_category': links_menu_category,
         'links_menu_type': links_menu_type,
-        'products_set': products_set,  # что бы при первом открывании продуктов, были показаны   все продукты
+        'products_set': products_paginator,  # что бы при первом открывании продуктов, были показаны   все продукты
         'basket_itm': basket_itm
     }
     return render(request, 'mainapp/product_list.html', variable_date)
@@ -112,6 +134,4 @@ def single_product(request, pk_prod):
         'basket_itm': basket_itm,
         'single_prod': single_prod
     }
-    print('+++++#+++++++')
-    print(single_prod.id)
     return render(request, 'mainapp/single_product.html', variable_date)

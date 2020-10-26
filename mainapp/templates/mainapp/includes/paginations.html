@@ -1,0 +1,45 @@
+{% if pk_cat is None %}
+    <nav aria-label="Page navigation example" style="padding-bottom: 1em; padding-top: 1em;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                {% if products_set.has_previous %}
+                    <a href="{% url 'mainapp:index_page'  products_set.previous_page_number %}"
+                       class="page-link genric-btn primary">Назад</a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                                    <span class="page-link genric-btn primary">
+                                        страница {{ products_set.number }} из {{ products_set.paginator.num_pages }}
+                                    </span>
+            </li>
+            <li class="page-item">
+                {% if products_set.has_next %}
+                    <a href="{% url 'mainapp:index_page' products_set.next_page_number %}"
+                       class="page-link genric-btn primary">Вперёд</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+{% else %}
+    <nav aria-label="Page navigation example" style="padding-bottom: 1em; padding-top: 1em;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                {% if products_set.has_previous %}
+                    <a href="{% url 'mainapp:pr_category_page' pk_cat products_set.previous_page_number %}"
+                       class="page-link genric-btn primary">Назад</a>
+                {% endif %}
+            </li>
+            <li class="page-item">
+                                    <span class="page-link genric-btn primary">
+                                        страница {{ products_set.number }} из {{ products_set.paginator.num_pages }}
+                                    </span>
+            </li>
+            <li class="page-item">
+                {% if products_set.has_next %}
+                    <a href="{% url 'mainapp:pr_category_page' pk_cat products_set.next_page_number %}"
+                       class="page-link genric-btn primary">Вперёд</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+{% endif %}
