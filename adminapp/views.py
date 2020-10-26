@@ -103,15 +103,16 @@ def user_delete(request, pk):
 
 # products =============== products =============== products =============== products
 @user_passes_test(lambda x: x.is_superuser)
-def products_category_read(request, pk):
+def products_category_read(request, pk, page=1):
     title = 'adm/товары категории'
     products = Product.objects.filter(category=pk)
-    if products.exists():
-        pk_category = products[0].category_id
+    products_page = get_paginator_page(products, page)
+    # if products.exists():
+    #     pk_category = products[0].category_id
     pk_category = pk
     content = {
         'title': title,
-        'objects_of_category': products,  # загружать на странице сипсок  по категориям
+        'objects_of_category': products_page,  # загружать на странице сипсок  по категориям
         'objects_of_type': None,  # не загружать на странице сипсок  по типам
         'pk_category': pk_category  # для передачи pk категории в шаблон, что бы  потомвернуться к списку товаров
     }
@@ -119,15 +120,16 @@ def products_category_read(request, pk):
 
 
 @user_passes_test(lambda x: x.is_superuser)
-def products_type_read(request, pk):
+def products_type_read(request, pk, page=1):
     title = 'adm/товары типа'
     products = Product.objects.filter(type=pk)
-    if products.exists():
-        pk_type = products[0].type_id
+    products_page = get_paginator_page(products, page)
+    # if products.exists():
+    #     pk_type = products[0].type_id
     pk_type = pk
     content = {
         'title': title,
-        'objects_of_type': products,
+        'objects_of_type': products_page,
         'objects_of_category': None,
         'pk_type': pk_type
     }
