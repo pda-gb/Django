@@ -2,21 +2,22 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-    <div>
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ objects.as_p }}
-            <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
-        </form>
-        {% if pk_category %}
-            <button class="btn btn-outline-info form-control last-related">
-                <a href="{% url 'admin:products_category_read' pk_category %}">Вернуться к списку продуктов</a>
-            </button>
-        {% else %}
-            <button class="btn btn-outline-info form-control last-related">
-                <a href="{% url 'adminapp:products_type_read' objects.pk %}">Вернуться ксписку продуктов</a>
-            </button>
-        {% endif %}
+    <div class="container">
+        <div class="col-md-auto">
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ objects.as_p }}
+                <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
+            </form>
+            {% if pk_category %}
+                <button class="btn btn-outline-info form-control last-related">
+                    <a href="{% url 'admin:products_category_read' pk_category %}">Вернуться к списку продуктов</a>
+                </button>
+            {% else %}
+                <button class="btn btn-outline-info form-control last-related">
+                    <a href="{% url 'adminapp:products_type_read' objects.pk %}">Вернуться ксписку продуктов</a>
+                </button>
+            {% endif %}
+        </div>
     </div>
-
 {% endblock content_adm %}
