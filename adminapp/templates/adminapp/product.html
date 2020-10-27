@@ -10,13 +10,10 @@
                 <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
             </form>
             {% if pk_category %}
-                <button class="btn btn-outline-info form-control last-related">
-                    <a href="{% url 'admin:products_category_read' pk_category %}">Вернуться к списку продуктов</a>
-                </button>
+                    <a href="{% url 'admin:products_category_read' pk_category %}" class="btn btn-outline-info form-control last-related">Вернуться к списку продуктов</a>
             {% else %}
-                <button class="btn btn-outline-info form-control last-related">
-                    <a href="{% url 'adminapp:products_type_read' objects.pk %}">Вернуться ксписку продуктов</a>
-                </button>
+                <a href="{% url 'adminapp:products_type_read' objects.pk %}"
+                   class="btn btn-outline-info form-control last-related">Вернуться ксписку продуктов</a>
             {% endif %}
         </div>
     </div>

@@ -9,10 +9,8 @@
                 {{ objects.as_p }}
                 <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
             </form>
-
-            <button class="btn btn-outline-info form-control last-related">
-                <a href="{% url 'admin:types_read' %}">Вернуться к типам</a>
-            </button>
+            <a href="{% url 'admin:types_read' %}" class="btn btn-outline-info form-control last-related">Вернуться к
+                типам</a>
         </div>
     </div>
 {% endblock content_adm %}
