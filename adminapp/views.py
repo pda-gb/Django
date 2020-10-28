@@ -43,10 +43,10 @@ class UsersListView(ListView):
         return super().dispatch(*args, **kwargs)
 
     # добавляем данные в контекст
-    # def get_context_data(self, **kwargs):
-    #     context_data = super().get_context_data(**kwargs)
-    #     context_data['qwerty'] = 'abc'
-    #     return context_data
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Пользователи'
+        return context_data
 
     # пагинатор, указвываем колю-во на странице, на страницу передаётся page_obj
     paginate_by = 3
@@ -72,6 +72,11 @@ class UserCreateView(CreateView):
     @method_decorator(user_passes_test(lambda x: x.is_superuser))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Создать пользователя'
+        return context_data
 
 
 # @user_passes_test(lambda x: x.is_superuser)
@@ -100,6 +105,11 @@ class UserUpdateView(UpdateView):
     @method_decorator(user_passes_test(lambda x: x.is_superuser))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Просмотр/Редактирование пользователя'
+        return context_data
 
 
 # @user_passes_test(lambda x: x.is_superuser)
@@ -131,6 +141,11 @@ class UserDeleteView(DeleteView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Удаление пользователя'
+        return context_data
+
     # переопределяем метод удаления (на is_active)
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -147,6 +162,11 @@ class UserReturnView(DeleteView):
     @method_decorator(user_passes_test(lambda x: x.is_superuser))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Восстановление пользователя'
+        return context_data
 
     # переопределяем метод удаления (на is_active)
     def delete(self, request, *args, **kwargs):
@@ -337,6 +357,11 @@ class CategoryCreateView(CreateView):
     # fields = '__all__'
     form_class = AdminEditFormProductCategory  # в шаблон передаётся form
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Создать категорию'
+        return context_data
+
 
 # @user_passes_test(lambda x: x.is_superuser)
 # def category_create(request):
@@ -365,6 +390,11 @@ class CategoryUpdateView(UpdateView):
 
     success_url = reverse_lazy('admin:categories_read')
     form_class = AdminEditFormProductCategory
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Редактировать категорию'
+        return context_data
 
 
 # @user_passes_test(lambda x: x.is_superuser)
@@ -399,6 +429,11 @@ class CategoryDeleteView(DeleteView):
         self.object.is_active = False
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = 'Удалить категорию'
+        return context_data
 
 
 # @user_passes_test(lambda x: x.is_superuser)
