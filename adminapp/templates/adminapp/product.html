@@ -9,10 +9,10 @@
                 {{ objects.as_p }}
                 <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
             </form>
-            {% if pk_category %}
-                    <a href="{% url 'admin:products_category_read' pk_category %}" class="btn btn-outline-info form-control last-related">Вернуться к списку продуктов</a>
+            {% if from_category %}
+                    <a href="{% url 'admin:products_category_read' object.pk %}" class="btn btn-outline-info form-control last-related">Вернуться к списку продуктов</a>
             {% else %}
-                <a href="{% url 'adminapp:products_type_read' objects.pk %}"
+                <a href="{% url 'adminapp:products_type_read' object.pk %}"
                    class="btn btn-outline-info form-control last-related">Вернуться ксписку продуктов</a>
             {% endif %}
         </div>

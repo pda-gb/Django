@@ -1,7 +1,10 @@
 import random
 
+from django.contrib.auth.decorators import user_passes_test
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
+from django.views.generic import DetailView
 
 from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory, ProductType
@@ -67,6 +70,7 @@ def get_paginator_page(_products, _page):
         _products_paginator = _paginator.page(_paginator.num_pages)
     return _products_paginator
 
+
 # сделать фильтрацию по типам последовательно после категорий
 # добавить третье меню для выбора типа и направления сортировки (название, цена, скидки)
 def products(request, pk_cat=None, page=1):
@@ -125,13 +129,29 @@ def contact(request):
     return render(request, 'mainapp/contact.html', variable_date)
 
 
-def single_product(request, pk_prod):
-    single_prod = get_object_or_404(Product, pk=pk_prod)
-    title = single_prod.name
-    basket_itm = get_basket_itm(request.user)
-    variable_date = {
-        'title': title,
-        'basket_itm': basket_itm,
-        'single_prod': single_prod
-    }
-    return render(request, 'mainapp/single_product.html', variable_date)
+class SingleProductDetailView(DetailView):
+    model = Product
+    template_name = 'mainapp/single_product.html'
+
+    @method_decorator(user_passes_test(lambda x: x.is_superuser))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+
+
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data['basket_itm'] = get_basket_itm()
+    #     return context_data
+
+
+# def single_product(request, pk_prod):
+#     single_prod = get_object_or_404(Product, pk=pk_prod)
+#     title = single_prod.name
+#     basket_itm = get_basket_itm(request.user)
+#     variable_date = {
+#         'title': title,
+#         'basket_itm': basket_itm,
+#         'single_prod': single_prod
+#     }
+#     return render(request, 'mainapp/single_product.html', variable_date)

@@ -4,11 +4,11 @@
 {% block content_adm %}
     <div class="container">
         <div class="col-md-auto">
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ objects.as_p }}
-            <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
-        </form>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
+            </form>
 
             <a href="{% url 'admin:categories_read' %}" class="btn btn-outline-info form-control last-related">Вернуться
                 к категориям</a>

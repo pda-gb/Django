@@ -3,8 +3,8 @@
 
 {% block content_adm %}
     <div>
-        Уверены, что хотите удалить категорию: <strong>{{ object_del.name }}</strong>?
-        <form action="{% url 'admin:category_delete' object_del.pk %} " method="post">
+        Уверены, что хотите удалить категорию: <strong>{{ object.name }}</strong>?
+        <form action="{% url 'admin:category_delete' object.pk %} " method="post">
             {% csrf_token %}
             <input type="submit" value="удалить" class="btn btn-danger">
         </form>

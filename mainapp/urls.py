@@ -13,5 +13,5 @@ urlpatterns = [
 
    # path('<int:pk_type>/', mainapp.products, name='pr_type'),
 
-   path('single_product/<int:pk_prod>/', mainapp.single_product, name='single_product'),
+   path('single_product/<int:pk>/', mainapp.SingleProductDetailView.as_view(), name='single_product'),
 ]
