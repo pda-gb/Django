@@ -6,12 +6,14 @@
         <div class="col-md-auto">
             <form class="form-horizontal" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ objects.as_p }}
+                {{ form.as_p }}
                 <input type="submit" class="btn btn-outline-success form-control" value="сохранить">
             </form>
-            {% if from_category %}
-                    <a href="{% url 'admin:products_category_read' object.pk %}" class="btn btn-outline-info form-control last-related">Вернуться к списку продуктов</a>
-            {% else %}
+            {% if objects_of_category %}
+                <a href="{% url 'admin:products_category_read' object.pk %}"
+                   class="btn btn-outline-info form-control last-related">Вернуться к списку продуктов</a>
+            {% endif %}
+            {% if objects_of_type %}
                 <a href="{% url 'adminapp:products_type_read' object.pk %}"
                    class="btn btn-outline-info form-control last-related">Вернуться ксписку продуктов</a>
             {% endif %}

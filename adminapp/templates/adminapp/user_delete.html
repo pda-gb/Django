@@ -2,16 +2,30 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-    <div>
-        Уверены, что хотите удалить пользователя: <strong>{{ object.name }}</strong>?
-        <form action="{% url 'admin:user_delete' object.pk %} " method="post">
-            {% csrf_token %}
-            <input type="submit" value="удалить" class="btn btn-danger">
-        </form>
-        <button class="btn btn-success">
-            <a href="{% url 'admin:users_read' %}">отмена</a>
+    {% if object.is_active %}
+        <div>
+            Уверены, что хотите удалить пользователя: <strong>{{ object.name }}</strong>?
+            <form action="{% url 'admin:user_delete' object.pk %} " method="post">
+                {% csrf_token %}
+                <input type="submit" value="удалить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                <a href="{% url 'admin:users_read' %}">отмена</a>
 
-        </button>
-    </div>
+            </button>
+        </div>
+    {% else %}
+        <div>
+            Уверены, что хотите восстановить пользователя: <strong>{{ object.name }}</strong>?
+            <form action="{% url 'admin:user_delete' object.pk %} " method="post">
+                {% csrf_token %}
+                <input type="submit" value="восстановить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                <a href="{% url 'admin:users_read' %}">отмена</a>
+
+            </button>
+        </div>
+    {% endif %}
 
 {% endblock content_adm %}

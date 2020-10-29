@@ -2,23 +2,48 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-    <div>
-        Уверены, что хотите удалить товар: <strong>{{ object_del.name }}</strong>?
-        {% if pk_category %}
-            <form action="{% url 'admin:product_ct_delete' pk_category object_del.pk %} " method="post">
-        {% else %}
-            <form action="{% url 'admin:product_tp_delete' pk_type object_del.pk %} " method="post">
-        {% endif %}
-        {% csrf_token %}
-        <input type="submit" value="удалить" class="btn btn-danger">
-        </form>
-        <button class="btn btn-success">
+    {% if object.is_active %}
+        <div>
+            Уверены, что хотите удалить товар: <strong>{{ object.name }}</strong>?
             {% if pk_category %}
-                <a href="{% url 'admin:products_category_read' pk_category %}">отмена</a>
-            {% else %}
-                <a href="{% url 'admin:products_type_read' pk_type %}">отмена</a>
+                <form action="{% url 'admin:product_ct_delete' object.pk  %} " method="post">
             {% endif %}
-        </button>
-    </div>
+            {% if pk_type %}
+                <form action="{% url 'admin:product_tp_delete' object.pk %} " method="post">
+            {% endif %}
+            {% csrf_token %}
+            <input type="submit" value="удалить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                {% if pk_category %}
+                    <a href="{% url 'admin:products_category_read' object.category_id %}">отмена</a>
+                {% endif %}
+                {% if pk_type %}
+                    <a href="{% url 'admin:products_type_read' object.type_id %}">отмена</a>
+                {% endif %}
+            </button>
+        </div>
+    {% else %}
+        <div>
+            Уверены, что хотите восстановить товар: <strong>{{ object.name }}</strong>?
+            {% if pk_category %}
+                <form action="{% url 'admin:product_ct_delete' object.pk  %} " method="post">
+            {% endif %}
+            {% if pk_type %}
+                <form action="{% url 'admin:product_tp_delete' object.pk %} " method="post">
+            {% endif %}
+            {% csrf_token %}
+            <input type="submit" value="восстановить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                {% if pk_category %}
+                    <a href="{% url 'admin:products_category_read' object.category_id %}">отмена</a>
+                {% endif %}
+                {% if pk_type %}
+                    <a href="{% url 'admin:products_type_read' object.type_id %}">отмена</a>
+                {% endif %}
+            </button>
+        </div>
+    {% endif %}
 
 {% endblock content_adm %}

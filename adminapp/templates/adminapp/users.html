@@ -44,7 +44,7 @@
                            class="btn btn-outline-danger ti-trash link-edit"
                            title="Удалить пользователя"></a>
                     {% else %}
-                        <a href="{% url 'admin:user_return' object.pk %}"
+                        <a href="{% url 'admin:user_delete' object.pk %}"
                            class="btn badge-success ti-plus link-edit"
                            title="Восстановить пользователя"></a>
                     {% endif %}

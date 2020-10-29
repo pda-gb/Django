@@ -1,19 +1,19 @@
-<nav aria-label="Page navigation example" >
+<nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <li class="page-item">
-            {% if objects_of_category.has_previous %}
-                <a href="{% url 'admin:products_category_read_page' pk_category objects_of_category.previous_page_number %}"
+            {% if page_obj.has_previous %}
+                <a href="{% url 'admin:products_category_read_page' pk_category page_obj.previous_page_number %}"
                    class="page-link genric-btn primary">Назад</a>
             {% endif %}
         </li>
         <li class="page-item">
                                     <span class="page-link genric-btn primary">
-                                        страница {{ objects_of_category.number }} из {{ objects_of_category.paginator.num_pages }}
+                                        страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
                                     </span>
         </li>
         <li class="page-item">
-            {% if objects_of_category.has_next %}
-                <a href="{% url 'admin:products_category_read_page' pk_category objects_of_category.next_page_number %}"
+            {% if page_obj.has_next %}
+                <a href="{% url 'admin:products_category_read_page' pk_category page_obj.next_page_number %}"
                    class="page-link genric-btn primary">Вперёд</a>
             {% endif %}
         </li>

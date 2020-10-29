@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for object in objects %}
+        {% for object in object_list %}
             <tr data-href="{% url 'admin:products_category_read' object.id %}"
                 title="Выбрать все товары данной категории"
                 bgcolor="{% if not object.is_active %}#fa8072{% endif %}">
@@ -42,7 +42,6 @@
                 </td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock content_adm %}

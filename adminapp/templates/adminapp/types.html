@@ -10,14 +10,13 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">id</th>
-            <th scope="col">name</th>
+            <th scope="col">Название</th>
             <th scope="col">Описание</th>
             <th scope="col">Удалить</th>
-
         </tr>
         </thead>
         <tbody>
-        {% for object in objects %}
+        {% for object in object_list %}
             <tr data-href="{% url 'adminapp:products_type_read' object.pk %}"
                 title="Выбрать все товары данного типа"
                 bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
@@ -43,7 +42,6 @@
                 </td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock content_adm %}
