@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load staticfiles %}
+{% load my_tags %}
 
 {% block product_list %}
     <!-- product list part start-->
@@ -48,7 +49,7 @@
                             {% for item in products_set %}
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="single_product_item">
-                                        <img src="/media/{{ item.image }}" alt="product" class="img-fluid">
+                                        <img src="{{ item.image|foto_product }}" alt="product" class="img-fluid">
                                         <h3>
                                             <a href="{% url 'mainapp:single_product' item.id %}">{{ item.short_desc }}</a>
                                         </h3>
