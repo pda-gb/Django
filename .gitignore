@@ -234,3 +234,4 @@ cython_debug/
 secret.json
 
 /media/foto_product/.directory
+/django_3.1.2/
