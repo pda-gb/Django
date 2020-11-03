@@ -1,0 +1,12 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block login %}
+    {% if user.is_authenticated %}
+        <h1>Поздравляем!</h1>
+        <h3>Ваш аккаут - {{ user.username }}, активирован</h3>
+    {% else %}
+        <h1>Активация не пройдена</h1>
+    {% endif %}
+    <a href="{% url 'mainapp:index' %}" class="btn btn-outline-primary">На главную</a>
+{% endblock login %}

@@ -150,3 +150,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'authapp.Buyer'
 
 LOGIN_URL = '/auth/login/'
+
+DOMAIN_NAME = 'http://localhost:8000'
+
+EMAIL_HOST = 'localhost'
+# EMAIL_HOST_USER = 'django@geekshop.local'
+# EMAIL_HOST_PASSWORD = 'geekshop'
+EMAIL_PORT = '7725'
+EMAIL_USE_SSL = False
+
+# пример использования yandex
+# EMAIL_HOST = 'smtp.yandex.ru'
+# EMAIL_HOST_USER = 'qwerty@yandex.ru'
+# EMAIL_HOST_PASSWORD = 'password'
+# EMAIL_PORT = '465'
+# EMAIL_USE_SSL = True
+
+# вариант запуска локального smtp сервера: python3 -m smtpd -n -c DebuggingServer localhost:7725
+EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+# вариант логгирования сообщений почты ввиде файлов
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/emal-messages/'
