@@ -6,7 +6,6 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 
-from basketapp.models import Basket
 from mainapp.models import Product, ProductCategory, ProductType
 
 
@@ -38,23 +37,14 @@ def get_products_in_main_page():
 #     same = Product.objects.filter(category_id='#').exclude(pk='#')[:4]
 #     return same
 
-def get_basket_itm(shop_user):
-    # создаём пустой оъект корзины
-    _basket_itm = None
-    if not shop_user.is_anonymous:
-        _basket_itm = Basket.objects.filter(buyer=shop_user)  # собираем товары из корзины, для отображ. кол.-ва
-    return _basket_itm
-
 
 def main(request):
     title = 'Магазин Подушек'
-    basket_itm = get_basket_itm(request.user)  # узнаём кто зашёл, если зареган, выводим количество товаров у "корзинки"
     main_products = get_products_in_main_page()  # выведем на главной 3  товара
     trending_products = get_trending_product()  # выведем на главной 6 тренд. товара
     variable_date = {
         'title': title,
         'main_products': main_products,
-        'basket_itm': basket_itm,
         'trending_products': trending_products
     }
     return render(request, 'mainapp/index.html', variable_date)
@@ -77,7 +67,6 @@ def products(request, pk_cat=None, page=1):
     title = 'Товары'
     links_menu_type = ProductType.objects.filter(is_active=True)
     links_menu_category = ProductCategory.objects.filter(is_active=True)
-    basket_itm = get_basket_itm(request.user)
 
     if pk_cat is None:
         products_set = Product.objects.filter(is_active=True, category__is_active=True)
@@ -104,7 +93,6 @@ def products(request, pk_cat=None, page=1):
             'links_menu_type': links_menu_type,
             "products_set": products_paginator,
             'category_of_products_set': category_of_products_set,
-            'basket_itm': basket_itm
         }
         return render(request, 'mainapp/product_list.html', variable_date)
 
@@ -114,17 +102,14 @@ def products(request, pk_cat=None, page=1):
         'links_menu_category': links_menu_category,
         'links_menu_type': links_menu_type,
         'products_set': products_paginator,  # что бы при первом открывании продуктов, были показаны   все продукты
-        'basket_itm': basket_itm
     }
     return render(request, 'mainapp/product_list.html', variable_date)
 
 
 def contact(request):
     title = 'Контакты'
-    basket_itm = get_basket_itm(request.user)
     variable_date = {
         'title': title,
-        'basket_itm': basket_itm
     }
     return render(request, 'mainapp/contact.html', variable_date)
 
@@ -141,7 +126,6 @@ class SingleProductDetailView(DetailView):
         context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Товар'
         return context_data
-
 
 # def single_product(request, pk_prod):
 #     single_prod = get_object_or_404(Product, pk=pk_prod)
