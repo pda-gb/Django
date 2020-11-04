@@ -10,10 +10,10 @@
                     <div class="login_part_text text-center">
                         <div class="login_part_text_iner">
                             {% block registry_fields_1 %}
-                            <h2>New to our Shop?</h2>
-                            <p>There are advances being made in science and technology
-                                everyday, and a good example of this is the</p>
-                            <a href="{% url 'authapp:registry' %}" class="btn_3">Регистрация</a>
+                                <h2>New to our Shop?</h2>
+                                <p>There are advances being made in science and technology
+                                    everyday, and a good example of this is the</p>
+                                <a href="{% url 'authapp:registry' %}" class="btn_3">Регистрация</a>
                             {% endblock registry_fields_1 %}
                         </div>
                     </div>
@@ -21,32 +21,73 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="login_part_form">
                         <div class="login_part_form_iner">
-                        {% block registry_fields_2 %}
-                            <h3>Welcome Back ! <br>
-                                Please Sign in now</h3>
-                            <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
-                                {% csrf_token %}
-                                {% if next %}
-                                    <input type="hidden" name="next" value="{{ next }}">
-                                {% endif %}
-                                {{ login_form.as_p }}
-                                <div class="col-md-12 form-group">
-                                    <div class="creat_account d-flex align-items-center">
-                                        <input type="checkbox" id="f-option" name="selector">
-                                        <label for="f-option">Remember me</label>
+                            {% block registry_fields_2 %}
+                                <h3>Welcome Back ! <br>
+                                    Please Sign in now</h3>
+                                <form class="form-horizontal" action="{% url 'auth:login' %}" method="post">
+                                    {% csrf_token %}
+                                    {% if next %}
+                                        <input type="hidden" name="next" value="{{ next }}">
+                                    {% endif %}
+                                    {{ login_form.as_p }}
+                                    <div class="col-md-12 form-group">
+                                        <div class="creat_account d-flex align-items-center">
+                                            <input type="checkbox" id="f-option" name="selector">
+                                            <label for="f-option">Remember me</label>
+                                        </div>
+                                        <button type="submit" value="submit" class="btn_3">
+                                            Войти
+                                        </button>
+                                        <a class="lost_pass" href="#">forget password?</a>
                                     </div>
-                                    <button type="submit" value="submit" class="btn_3">
-                                        Войти
-                                    </button>
-                                    <a class="lost_pass" href="#">forget password?</a>
-                                </div>
-                            </form>
-                        {% endblock registry_fields_2 %}
+                                </form>
+                            {% endblock registry_fields_2 %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% if from_registry or from_registry is False %}
+            <div class="modal fade" id="idModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">
+                                {% if from_registry %}
+                                    ПОЗДРАВЛЯЕМ ! ! !
+                                {% else %}
+                                    ОШИБКА !
+                                {% endif %}
+                            </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% if from_registry %}
+                                <p>Вы успешно зарегистрировались, осталось подтвердить
+                                    речистрацию - на вашу почту отправлена ссылка
+                                    для подтверждения</p>
+                            {% else %}
+                                <p>Не удалось зарегистрироваться, попробуйте снова</p>
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </section>
     <!--================login_part end =================-->
 {% endblock login %}
+
+{% block js %}
+    {{ block.super }}
+    {% block custom %}
+        <script src="{% static 'js/modal.js' %}"></script>
+    {% endblock custom %}
+{% endblock js %}

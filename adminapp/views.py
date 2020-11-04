@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, AdminEditFormProduct, \
-    AdminEditFormBuyer
+from adminapp.forms import AdminEditFormProductCategory, AdminEditFormProductType, \
+    AdminEditFormProduct, AdminEditFormBuyer
 from authapp.forms import BuyerRegistyForm
 from authapp.models import Buyer
 from mainapp.models import ProductCategory, ProductType, Product

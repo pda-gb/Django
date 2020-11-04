@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib import auth
-# from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
@@ -13,9 +12,6 @@ from basketapp.models import Basket
 def verification(request, email, activation_key):
     try:  # если user не существует
         user = Buyer.objects.get(email=email)
-        print('-----')
-        print(f'email:{email}, activation_key:{activation_key}')
-        print(f'user:{user} :')
         if user.activation_key == activation_key and not user.is_activations_expired():
             user.is_active = True
             user.save()
@@ -26,7 +22,7 @@ def verification(request, email, activation_key):
             print(f'error activation of: {email}')
             return render(request, 'authapp/verification.html')
     except Exception as e:
-        print('=======')
+        print('====fail activation====')
         print(e.args)
         return HttpResponseRedirect(reverse('main'))
 
@@ -55,10 +51,22 @@ def login(request):
             if 'next' in request.POST.keys():
                 return HttpResponseRedirect(request.POST['next'])
             return HttpResponseRedirect(reverse('main'))
+
+    # Если пришли из формы регистрации, получаем True
+    from_registry = request.session.get('is_registry', None)
+    if from_registry:  # сразу очищаем сессию, что бы заново не получать уведом. при входе в login
+        del request.session['is_registry']
+    # if from_registry:
+    #     message_registry = 'Успех'
+    # else:
+    #     message_registry = 'Неудалось'
+
     variable_date = {
         'title': title,
         'login_form': login_form,
-        'next': _next
+        'next': _next,
+        'from_registry': from_registry,
+        # 'message_registry': message_registry
     }
 
     return render(request, 'authapp/login.html', variable_date)
@@ -76,10 +84,12 @@ def registry(request):
         if registry_form.is_valid():
             user = registry_form.save()
             if send_verifications_email(user):
-                print('verification success')
+                print('===verification success===')
+                request.session['is_registry'] = True
                 return HttpResponseRedirect(reverse('auth:login'))
             else:
-                print('verification error')
+                print('===verification error===')
+                request.session['is_registry'] = False
                 return HttpResponseRedirect(reverse('auth:login'))
     else:
         registry_form = BuyerRegistyForm()
