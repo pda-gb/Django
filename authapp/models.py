@@ -8,7 +8,8 @@ from django.utils.timezone import now
 class Buyer(AbstractUser):
     avatar = models.ImageField(verbose_name='Фото', upload_to='users_avatar', blank=True)
     # age = models.PositiveSmallIntegerField(verbose_name='Ваш возраст')
-    age = models.DateField(verbose_name='Ваша дата рождения')
+    age = models.PositiveIntegerField(verbose_name='возраст', default=18)
+
 
     # ключ активации и время данное на активацию
     activation_key = models.CharField(max_length=128, blank=True)
