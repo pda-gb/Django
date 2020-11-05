@@ -179,7 +179,17 @@ EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # встроенный бэкенд
     'social_core.backends.vk.VKOAuth2',  # вк бэкенд
+    # 'social_core.backends.google.GoogleOAuth2',  # google бэкенд
 )
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = secret_value['SOCIAL_AUTH_VK_OAUTH2_KEY']
 SOCIAL_AUTH_VK_OAUTH2_SECRET = secret_value['SOCIAL_AUTH_VK_OAUTH2_SECRET']
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secret_value['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']  # Google Consumer Key
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secret_value['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']  # Google Consumer Secret
+
+# LOGIN_URL = '/auth/login/google-oauth2/'
+# LOGIN_REDIRECT_URL = '/'
+# LOGOUT_REDIRECT_URL = '/'
