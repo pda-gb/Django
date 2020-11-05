@@ -2,16 +2,28 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-    <div>
-        Уверены, что хотите удалить тип товара: <strong>{{ object_del.name }}</strong>?
-        <form action="{% url 'admin:type_delete' object_del.pk %} " method="post">
-            {% csrf_token %}
-            <input type="submit" value="удалить" class="btn btn-danger">
-        </form>
-        <button class="btn btn-success">
-            <a href="{% url 'admin:types_read' %}">отмена</a>
-
-        </button>
-    </div>
+    {% if object.is_active %}
+        <div>
+            Уверены, что хотите удалить тип товара: <strong>{{ object.name }}</strong>?
+            <form action="{% url 'admin:type_delete' object.pk %} " method="post">
+                {% csrf_token %}
+                <input type="submit" value="удалить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                <a href="{% url 'admin:types_read' %}">отмена</a>
+            </button>
+        </div>
+    {% else %}
+        <div>
+            Уверены, что хотите восстановить тип товара: <strong>{{ object.name }}</strong>?
+            <form action="{% url 'admin:type_delete' object.pk %} " method="post">
+                {% csrf_token %}
+                <input type="submit" value="Восстановить" class="btn btn-danger">
+            </form>
+            <button class="btn btn-success">
+                <a href="{% url 'admin:types_read' %}">отмена</a>
+            </button>
+        </div>
+    {% endif %}
 
 {% endblock content_adm %}

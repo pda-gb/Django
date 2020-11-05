@@ -2,9 +2,10 @@
 {% load staticfiles %}
 
 {% block content_adm %}
-        <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
+    <a href="{% url 'admin:admin' %}" class="genric-btn primary rounded">Админка</a>
     <a href="{% url 'admin:category_create' %}" class="genric-btn success circle">+ Создать категорию</a>
-    <table class="table table-striped table-hover">
+    {% include 'adminapp/includes/inc_categories_paginations.html' %}
+    <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -15,28 +16,32 @@
         </tr>
         </thead>
         <tbody>
-        {% for object in objects %}
-            <tr data-href="{% url 'admin:products_read' object.id %}" data-toggle="tooltip"
+        {% for object in object_list %}
+            <tr data-href="{% url 'admin:products_category_read' object.id %}"
                 title="Выбрать все товары данной категории"
-                bgcolor="{% if not object.is_active %} #fa8072 {% endif %}">
+                bgcolor="{% if not object.is_active %}#fa8072{% endif %}">
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ object.id }}</td>
                 <td>
                     <a href="{% url 'admin:category_update' object.pk %}" class="btn badge-primary link-edit"
-                       data-toggle="tooltip" title="Редактировать категорию">
+                       title="Редактировать категорию">
                         {{ object.name }}
                     </a>
                 </td>
                 <td>{{ object.description }}</td>
                 <td>
-                    <a href="{% url 'admin:category_delete' object.pk %}" class="btn badge-danger link-edit"
-                       data-toggle="tooltip" title="Удалить категорию">
-                        x
-                    </a>
+                    {% if object.is_active %}
+                        <a href="{% url 'admin:category_delete' object.pk %}"
+                           class="btn btn-outline-danger ti-trash link-edit"
+                           title="Удалить категорию"></a>
+                    {% else %}
+                        <a href="{% url 'admin:category_delete' object.pk %}"
+                           class="btn badge-success ti-plus link-edit"
+                           title="Восстановить категорию"></a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
-
         </tbody>
     </table>
 {% endblock content_adm %}

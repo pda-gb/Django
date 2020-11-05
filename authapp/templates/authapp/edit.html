@@ -1,9 +1,10 @@
 {% extends 'authapp/registry.html' %}
 {% load staticfiles %}
+{% load my_tags %}
 
 
 {% block registry_fields_1 %}
-    <img src="/media/{{ user.avatar }}" alt="Фото">
+    <img src="{{ user.avatar|foto_user }}" alt="Фото">
 {% endblock registry_fields_1 %}
 
 {% block edit_fields_1 %}

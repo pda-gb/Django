@@ -6,6 +6,12 @@ app_name = 'mainapp'
 
 urlpatterns = [
    path('', mainapp.products, name='index'),
+   path('page/<page>/', mainapp.products, name='index_page'),
+
    path('<int:pk_cat>/', mainapp.products, name='pr_category'),
-   path('single_product/<int:pk_prod>/', mainapp.single_product, name='single_product'),
+   path('<int:pk_cat>/page/<page>/', mainapp.products, name='pr_category_page'),
+
+   # path('<int:pk_type>/', mainapp.products, name='pr_type'),
+
+   path('single_product/<int:pk>/', mainapp.SingleProductDetailView.as_view(), name='single_product'),
 ]
