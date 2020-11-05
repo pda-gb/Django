@@ -4,10 +4,13 @@ import random
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from authapp.models import Buyer
+from authapp.models import Buyer, BuyerProfile
 
 
 class BuyerLoginForm(AuthenticationForm):
+
+    error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
+
     class Meta:
         model = Buyer
         fields = ('username', 'password')
@@ -21,12 +24,15 @@ class BuyerLoginForm(AuthenticationForm):
 
 
 class BuyerRegistyForm(UserCreationForm):
+
+    error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
+
     class Meta:
         model = Buyer
         fields = ('username', 'first_name', 'last_name', 'age', 'email', 'avatar', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(BuyerRegistyForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
@@ -42,38 +48,51 @@ class BuyerRegistyForm(UserCreationForm):
         user.save()
         return user
 
-
-# переделать, так как вводится не возраст, а дата
-
-#     def clean_age(self):
-#         """
-#         доп валидация по возрасту
-#         :return:
-#         """
-#         data = self.cleaned_data['age']
-#         if data < 18:
-#             raise forms.ValidationError("Вы слишком молоды!")
-#         return data
+    def clean_age(self):
+        """
+        доп валидация по возрасту
+        :return:
+        """
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("Вы слишком молоды!")
+        return data
 
 
 class BuyerEditForm(UserChangeForm):
+
+    error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
+
     class Meta:
         model = Buyer
         fields = ('username', 'first_name', 'last_name', 'age', 'email', 'avatar')
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(BuyerEditForm, self).__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
             field.help_text = ''
             if field_name == 'password':
                 field.widget = forms.HiddenInput()
 
-# переделать, так как вводится не возраст, а дата
+    def clean_age(self):
+        data = self.cleaned_data['age']
+        if data < 18:
+            raise forms.ValidationError("Вы слишком молоды!")
 
-# def clean_age(self):
-#     data = self.cleaned_data['age']
-#     if data < 18:
-#         raise forms.ValidationError("Вы слишком молоды!")
-#
-#     return data
+        return data
+
+
+class BuyerProfileEditForm(forms.ModelForm ):
+
+    error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
+
+    class Meta:
+        model = BuyerProfile
+        fields = ('tagline', 'about_me', 'gender')
+
+    def __init__(self, *args, **kwargs):
+        super(BuyerProfileEditForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.help_text = ''

@@ -1,10 +1,11 @@
 from django.conf import settings
 from django.contrib import auth
 from django.core.mail import send_mail
+from django.db import transaction
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 
-from authapp.forms import BuyerLoginForm, BuyerRegistyForm, BuyerEditForm
+from authapp.forms import BuyerLoginForm, BuyerRegistyForm, BuyerEditForm, BuyerProfileEditForm
 from authapp.models import Buyer
 from basketapp.models import Basket
 
@@ -15,7 +16,8 @@ def verification(request, email, activation_key):
         if user.activation_key == activation_key and not user.is_activations_expired():
             user.is_active = True
             user.save()
-            auth.login(request, user)
+            # укажем явно backend для login, т.к. их тереь есть от соц. сетей
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return render(request, 'authapp/verification.html')
         else:
             print('++++++++')
@@ -99,7 +101,9 @@ def registry(request):
     }
     return render(request, 'authapp/registry.html', variable_date)
 
-
+# (вар.1) все операции контроллера одна атомарная транзакция, т.к. edit_form
+# и profile_form связаны через сигнал в модели
+@transaction.atomic()
 def edit(request):
     title = 'Редактирование'
 
@@ -110,16 +114,21 @@ def edit(request):
 
     if request.method == 'POST':
         edit_form = BuyerEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
-            edit_form.save()
+        profile_form = BuyerProfileEditForm(request.POST, instance=request.user.buyerprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
+            # (вар.2) с пом. контекстного менеджера  атомарны только нужные операции
+            # with transaction.atomic():
+            edit_form.save()  # по сигналу(receiver) в модели сохранится profile_form
             return HttpResponseRedirect(reverse('main'))
     else:
         edit_form = BuyerEditForm(instance=request.user)
+        profile_form = BuyerProfileEditForm(instance=request.user.buyerprofile)
 
     variable_date = {
         'title': title,
         'edit_form': edit_form,
-        'basket_itm': basket_itm
+        'basket_itm': basket_itm,
+        'profile_form': profile_form
     }
 
     return render(request, 'authapp/edit.html', variable_date)

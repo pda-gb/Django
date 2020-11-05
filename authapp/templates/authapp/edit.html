@@ -12,6 +12,7 @@
     <form class="form-horizontal" action="{% url 'authapp:edit' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ edit_form.as_p }}
+    {{ profile_form.as_p }}
 {% endblock edit_fields_1 %}
 
 {% block edit_fields_2 %}
@@ -20,3 +21,23 @@
 
 {% block edit_fields_3 %}
 {% endblock edit_fields_3 %}
+
+{% block js %}
+    {{ block.super }}
+
+    {% block popper %}
+    {% endblock popper %}
+
+    {% block carousel %}
+    {% endblock carousel %}
+
+    {% block slick %}
+        <script src="{% static 'js/slick.min.js' %}"></script>
+        <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'js/contact.js' %}"></script>
+        <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+        <script src="{% static 'js/jquery.form.js' %}"></script>
+        <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'js/mail-script.js' %}"></script>
+    {% endblock slick %}
+{% endblock js %}
