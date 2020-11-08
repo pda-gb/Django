@@ -181,7 +181,7 @@ EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 
 # вариант логгирования сообщений почты ввиде файлов
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = 'tmp/emal-messages/'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # встроенный бэкенд

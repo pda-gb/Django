@@ -58,17 +58,12 @@ def login(request):
     from_registry = request.session.get('is_registry', None)
     if from_registry:  # сразу очищаем сессию, что бы заново не получать уведом. при входе в login
         del request.session['is_registry']
-    # if from_registry:
-    #     message_registry = 'Успех'
-    # else:
-    #     message_registry = 'Неудалось'
 
     variable_date = {
         'title': title,
         'login_form': login_form,
         'next': _next,
         'from_registry': from_registry,
-        # 'message_registry': message_registry
     }
 
     return render(request, 'authapp/login.html', variable_date)
