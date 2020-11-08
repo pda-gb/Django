@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from datetime import datetime
 from urllib.parse import urlunparse, urlencode
-
+from django.utils import timezone
 import requests
 from social_core.exceptions import AuthForbidden
 
@@ -14,7 +14,8 @@ def save_buyer_profile(backend, user, response, *args, **kwargs):
 
     api_url = urlunparse(('https', 'api.vk.com', '/method/users.get', None,
                           urlencode(OrderedDict(fields='.'.join(('bdate', 'sex',
-                                                                 'about', 'foto'
+                                                                 'about',
+                                                                 'photo_400'
                                                                  )),
                                                 access_token=
                                                 response['access_token'],
