@@ -54,4 +54,6 @@ def save_buyer_profile(backend, user, response, *args, **kwargs):
             user.save()
 
         if data['foto']:
-            Buyer.avatar = data['foto']
+            path_avatar = data['foto']
+            Buyer.avatar = f'/users_avatar/{path_avatar}'
+
