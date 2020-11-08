@@ -49,6 +49,7 @@ def save_buyer_profile(backend, user, response, *args, **kwargs):
             age = timezone.now().date().year - bdate.year
             if age < 18:
                 user.delete()
+                # при DEBUG = True выдаст ошибку, иначе на LOGIN_ERROR_URL
                 raise AuthForbidden('social_core.backends.vk.VKOAuth2')
             user.save()
 
