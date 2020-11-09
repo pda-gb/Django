@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os
 import json
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,7 +27,7 @@ SECRET_KEY = secret_value["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'authapp',
     'basketapp',
     'adminapp',
+    'social_django',
+
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware'
 ]
 
 ROOT_URLCONF = 'pillowmarket.urls'
@@ -70,6 +73,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'mainapp.context_processors.get_basket_itm',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -152,6 +157,10 @@ AUTH_USER_MODEL = 'authapp.Buyer'
 
 LOGIN_URL = '/auth/login/'
 
+# корректно обработаем ошибку об отказе доп. обрабатывать данные пользователя
+# при запросе из соц сетей
+LOGIN_ERROR_URL = '/'
+
 DOMAIN_NAME = 'http://localhost:8000'
 
 EMAIL_HOST = 'localhost'
@@ -172,4 +181,36 @@ EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
 
 # вариант логгирования сообщений почты ввиде файлов
 # EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = 'tmp/emal-messages/'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # встроенный бэкенд
+    'social_core.backends.vk.VKOAuth2',  # вк бэкенд
+    'social_core.backends.google.GoogleOAuth2',  # google бэкенд
+)
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = secret_value['SOCIAL_AUTH_VK_OAUTH2_KEY']
+SOCIAL_AUTH_VK_OAUTH2_SECRET = secret_value['SOCIAL_AUTH_VK_OAUTH2_SECRET']
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = secret_value['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']  # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = secret_value['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']  # Google Consumer Secret
+
+# отключаем запрос данных из VK по умолчанию
+SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
+# выбираем поля данных из VK, которые запросим
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.create_user',
+    # добавляем в конвеер свой метод, последовательно после создания польз.-ля
+    'authapp.pipeline.save_buyer_profile',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)

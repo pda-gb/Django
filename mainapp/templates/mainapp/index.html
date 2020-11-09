@@ -1,5 +1,6 @@
 {% extends 'mainapp/base.html' %}
 {% load static %}
+{% load my_tags %}
 
 {% block breadcrumb %}
 {% endblock breadcrumb %}
@@ -41,7 +42,7 @@
                             <div class="row align-items-center justify-content-between">
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="single_product_img">
-                                        <img src="/media/{{ itm.image }}" class="img-fluid" alt="Фото">
+                                        <img src="{{ itm.image|foto_product }}" class="img-fluid" alt="Фото">
                                         <img src="{% static 'img/product_overlay.png' %}" alt="#" class="product_overlay img-fluid">
                                     </div>
                                 </div>
@@ -78,7 +79,7 @@
                     <div class="col-lg-4 col-sm-6">
                         <div class="single_product_item">
                             <div class="single_product_item_thumb">
-                                <img src="/media/{{ product.image }}" alt="Фото" class="img-fluid">
+                                <img src="{{ product.image|foto_product }}" alt="Фото" class="img-fluid">
                             </div>
                             <h3><a href="{% url 'mainapp:single_product' product.id %}">{{ product.short_desc|capfirst }}</a></h3>
                             <p>Цена: {{ product.price }}&#8381;</p>

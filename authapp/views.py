@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.contrib import auth
-# from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
+from django.db import transaction
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 
-from authapp.forms import BuyerLoginForm, BuyerRegistyForm, BuyerEditForm
+from authapp.forms import BuyerLoginForm, BuyerRegistyForm, BuyerEditForm, BuyerProfileEditForm
 from authapp.models import Buyer
 from basketapp.models import Basket
 
@@ -13,20 +13,18 @@ from basketapp.models import Basket
 def verification(request, email, activation_key):
     try:  # если user не существует
         user = Buyer.objects.get(email=email)
-        print('-----')
-        print(f'email:{email}, activation_key:{activation_key}')
-        print(f'user:{user} :')
         if user.activation_key == activation_key and not user.is_activations_expired():
             user.is_active = True
             user.save()
-            auth.login(request, user)
+            # укажем явно backend для login, т.к. их тереь есть от соц. сетей
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return render(request, 'authapp/verification.html')
         else:
             print('++++++++')
             print(f'error activation of: {email}')
             return render(request, 'authapp/verification.html')
     except Exception as e:
-        print('=======')
+        print('====fail activation====')
         print(e.args)
         return HttpResponseRedirect(reverse('main'))
 
@@ -55,10 +53,17 @@ def login(request):
             if 'next' in request.POST.keys():
                 return HttpResponseRedirect(request.POST['next'])
             return HttpResponseRedirect(reverse('main'))
+
+    # Если пришли из формы регистрации, получаем True
+    from_registry = request.session.get('is_registry', None)
+    if from_registry:  # сразу очищаем сессию, что бы заново не получать уведом. при входе в login
+        del request.session['is_registry']
+
     variable_date = {
         'title': title,
         'login_form': login_form,
-        'next': _next
+        'next': _next,
+        'from_registry': from_registry,
     }
 
     return render(request, 'authapp/login.html', variable_date)
@@ -76,10 +81,12 @@ def registry(request):
         if registry_form.is_valid():
             user = registry_form.save()
             if send_verifications_email(user):
-                print('verification success')
+                print('===verification success===')
+                request.session['is_registry'] = True
                 return HttpResponseRedirect(reverse('auth:login'))
             else:
-                print('verification error')
+                print('===verification error===')
+                request.session['is_registry'] = False
                 return HttpResponseRedirect(reverse('auth:login'))
     else:
         registry_form = BuyerRegistyForm()
@@ -89,7 +96,9 @@ def registry(request):
     }
     return render(request, 'authapp/registry.html', variable_date)
 
-
+# (вар.1) все операции контроллера одна атомарная транзакция, т.к. edit_form
+# и profile_form связаны через сигнал в модели
+@transaction.atomic()
 def edit(request):
     title = 'Редактирование'
 
@@ -100,16 +109,21 @@ def edit(request):
 
     if request.method == 'POST':
         edit_form = BuyerEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
-            edit_form.save()
+        profile_form = BuyerProfileEditForm(request.POST, instance=request.user.buyerprofile)
+        if edit_form.is_valid() and profile_form.is_valid():
+            # (вар.2) с пом. контекстного менеджера  атомарны только нужные операции
+            # with transaction.atomic():
+            edit_form.save()  # по сигналу(receiver) в модели сохранится profile_form
             return HttpResponseRedirect(reverse('main'))
     else:
         edit_form = BuyerEditForm(instance=request.user)
+        profile_form = BuyerProfileEditForm(instance=request.user.buyerprofile)
 
     variable_date = {
         'title': title,
         'edit_form': edit_form,
-        'basket_itm': basket_itm
+        'basket_itm': basket_itm,
+        'profile_form': profile_form
     }
 
     return render(request, 'authapp/edit.html', variable_date)
