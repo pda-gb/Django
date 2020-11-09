@@ -1,5 +1,5 @@
 {% extends 'authapp/registry.html' %}
-{% load staticfiles %}
+{% load static %}
 {% load my_tags %}
 
 
@@ -9,9 +9,9 @@
 
 {% block edit_fields_1 %}
     <H3>Введите новые данные:</H3>
-        <form class="form-horizontal" action="{% url 'authapp:edit' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ edit_form.as_p }}
+    <form class="form-horizontal" action="{% url 'authapp:edit' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ edit_form.as_p }}
 {% endblock edit_fields_1 %}
 
 {% block edit_fields_2 %}

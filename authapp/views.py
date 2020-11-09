@@ -1,10 +1,41 @@
+from django.conf import settings
 from django.contrib import auth
 # from django.http import HttpResponseRedirect
+from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse
 
 from authapp.forms import BuyerLoginForm, BuyerRegistyForm, BuyerEditForm
+from authapp.models import Buyer
 from basketapp.models import Basket
+
+
+def verification(request, email, activation_key):
+    try:  # если user не существует
+        user = Buyer.objects.get(email=email)
+        print('-----')
+        print(f'email:{email}, activation_key:{activation_key}')
+        print(f'user:{user} :')
+        if user.activation_key == activation_key and not user.is_activations_expired():
+            user.is_active = True
+            user.save()
+            auth.login(request, user)
+            return render(request, 'authapp/verification.html')
+        else:
+            print('++++++++')
+            print(f'error activation of: {email}')
+            return render(request, 'authapp/verification.html')
+    except Exception as e:
+        print('=======')
+        print(e.args)
+        return HttpResponseRedirect(reverse('main'))
+
+
+def send_verifications_email(user):
+    verify_link = reverse('authapp:verification', args=[user.email, user.activation_key])
+    subject = f'Подтверждение регистрации {user.username}'
+    message = f'Для подтверждения регистрации перейдите по ссылке: \n {settings.DOMAIN_NAME}{verify_link}'
+    return send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
 
 
 def login(request):
@@ -43,8 +74,13 @@ def registry(request):
     if request.method == 'POST':
         registry_form = BuyerRegistyForm(request.POST, request.FILES)
         if registry_form.is_valid():
-            registry_form.save()
-            return HttpResponseRedirect(reverse('auth:login'))
+            user = registry_form.save()
+            if send_verifications_email(user):
+                print('verification success')
+                return HttpResponseRedirect(reverse('auth:login'))
+            else:
+                print('verification error')
+                return HttpResponseRedirect(reverse('auth:login'))
     else:
         registry_form = BuyerRegistyForm()
     variable_date = {
