@@ -1,19 +1,28 @@
 {% if user.is_authenticated %}
+    {% if user.is_superuser %}
+        <li class="nav-item">
+            <a class="nav-link" style="color: #8b010c;
+               text-decoration-line: underline"
+               href="{% url 'adminapp:admin' %}">
+                Админка
+            </a>
+        </li>
+    {% endif %}
     <li class="nav-item">
-        <a class="nav-link" href="{% url 'authapp:edit' %}">
+        <a class="nav-link" href="{% url 'authapp:edit' %}" style="font-weight: bold">
             {% if user.first_name %}
-            {{ user.first_name }}
+                {{ user.first_name }}
             {% else %}
-            {{ user.username }}
+                {{ user.username }}
             {% endif %}
         </a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'authapp:logout' %}">
             Выйти
         </a>
     </li>
 {% else %}
-    </li>
     <li class="nav-item">
         <a class="nav-link" href="#">
             {{ '[имя]' }}
