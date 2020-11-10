@@ -52,7 +52,7 @@
     {% endblock css %}
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 {% block header %}
     <!--::header part start::-->
     <header class="main_menu home_menu">
@@ -124,7 +124,7 @@
                                href="{% url 'basket:main' %}">
                                 <i class="flaticon-shopping-cart-black-shape"></i>
                                 {% if basket_itm %}
-                                    <span class="badge badge-pill badge-primary ">{{ basket_itm.0.total_quantity }}</span>
+                                    <span class="badge badge-pill badge-primary position-absolute">{{ basket_itm.0.total_quantity }}</span>
                                 {% endif %}
                             </a>
                         </div>
@@ -264,6 +264,7 @@
 
 {% block footer %}
     <!--::footer_part start::-->
+    <div class="wrapper flex-grow-1"></div>
     <footer class="footer_part">
         <div class="footer_iner">
             <div class="container">
@@ -335,6 +336,11 @@
     {% block magnific_popup %}
         <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
     {% endblock magnific_popup %}
+
+    {% block swiper_js %}
+        <script src="{% static 'js/swiper.min.js' %}"></script>
+        <script src="{% static 'js/mixitup.min.js' %}"></script>
+    {% endblock swiper_js %}
 
     {% block carousel %}
         <script src="{% static 'js/owl.carousel.min.js' %}"></script>
