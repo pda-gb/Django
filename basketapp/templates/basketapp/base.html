@@ -2,13 +2,33 @@
 {% load static %}
 
 {% block css %}
-    {{ block.super }}
-    {% block awesome %}
+    {% block Bootstrap %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    {% endblock Bootstrap %}
+    {% block animate %}
+        <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    {% endblock animate %}
+    {% block owl_carousel %}
+        <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    {% endblock owl_carousel %}
+    {% block awesome1 %}
+        <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    {% endblock awesome1 %}
+    {% block flaticon %}
+        <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    {% endblock flaticon %}
+    {% block awesome2 %}
         <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
         <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
-    {% endblock awesome %}
-    {% block swiper %}
-    {% endblock swiper %}
+    {% endblock awesome2 %}
+
+    {% block swiper_css %}
+    {% endblock swiper_css %}
+
+    {% block style %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock style %}
 {% endblock css %}
 
 {% block basket %}
