@@ -28,3 +28,8 @@ class Basket(models.Model):
         items = Basket.objects.filter(buyer=self.buyer)
         total = sum(list(map(lambda x: x.product_cost, items)))
         return total
+
+    # для получения "корзинок"  в контроллере заказа
+    @staticmethod
+    def get_items(user):
+        return Basket.objects.filter(buyer=user).order_by('product__category')

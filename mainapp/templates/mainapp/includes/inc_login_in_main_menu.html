@@ -8,14 +8,25 @@
             </a>
         </li>
     {% endif %}
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'authapp:edit' %}" style="font-weight: bold">
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown_4"
+           role="button" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="false" style="font-weight: bold">
             {% if user.first_name %}
                 {{ user.first_name }}
             {% else %}
                 {{ user.username }}
             {% endif %}
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown_4">
+
+            <a class="dropdown-item" href="{% url 'authapp:edit' %}">
+                профиль
+            </a>
+            <a class="dropdown-item" href="{% url 'basket:main' %}">корзина</a>
+            <a class="dropdown-item" href="{% url 'order:orders_list' %}">заказ</a>
+            <a class="dropdown-item" href="elements.html">подтв</a>
+        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{% url 'authapp:logout' %}">

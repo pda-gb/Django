@@ -49,10 +49,13 @@
         {% block style %}
             <link rel="stylesheet" href="{% static 'css/style.css' %}">
         {% endblock style %}
+        {% block css_custom %}
+            <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+        {% endblock css_custom %}
     {% endblock css %}
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body>
 {% block header %}
     <!--::header part start::-->
     <header class="main_menu home_menu">
@@ -173,6 +176,9 @@
 {% block content_adm %}
 {% endblock content_adm %}
 
+{% block order %}
+{% endblock order %}
+
 {% block trending_item %}
 {% endblock trending_item %}
 
@@ -264,7 +270,6 @@
 
 {% block footer %}
     <!--::footer_part start::-->
-    <div class="wrapper flex-grow-1"></div>
     <footer class="footer_part">
         <div class="footer_iner">
             <div class="container">
@@ -346,11 +351,6 @@
         <script src="{% static 'js/owl.carousel.min.js' %}"></script>
         <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
     {% endblock carousel %}
-
-    {% block swiper_js %}
-        <script src="{% static 'js/swiper.min.js' %}"></script>
-        <script src="{% static 'js/mixitup.min.js' %}"></script>
-    {% endblock swiper_js %}
 
     {% block slick %}
         <script src="{% static 'js/slick.min.js' %}"></script>
