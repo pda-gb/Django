@@ -118,10 +118,6 @@ class SingleProductDetailView(DetailView):
     model = Product
     template_name = 'mainapp/single_product.html'
 
-    @method_decorator(user_passes_test(lambda x: x.is_superuser))
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data['title'] = 'Товар'
