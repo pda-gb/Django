@@ -9,7 +9,7 @@ from authapp.models import Buyer, BuyerProfile
 
 class BuyerLoginForm(AuthenticationForm):
 
-    error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
+    # error_css_class = 'text-danger'  # подсвечиваем красным поля с ошибкой
 
     class Meta:
         model = Buyer

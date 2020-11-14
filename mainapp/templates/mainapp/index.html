@@ -43,17 +43,20 @@
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="single_product_img">
                                         <img src="{{ itm.image|foto_product }}" class="img-fluid" alt="Фото">
-                                        <img src="{% static 'img/product_overlay.png' %}" alt="#" class="product_overlay img-fluid">
+                                        <img src="{% static 'img/product_overlay.png' %}" alt="#"
+                                             class="product_overlay img-fluid">
                                     </div>
                                 </div>
-                                    <div class="col-lg-5 col-sm-6">
-                                        <div class="single_product_content">
-                                            <h5>Цена: {{ itm.price }}&#8381;</h5>
-                                            <h2><a href="{% url 'mainapp:single_product' itm.id %}">{{ itm.short_desc|capfirst }}</a></h2>
-                                            <a href="{% url 'mainapp:single_product' itm.id %}" class="btn_3">Подробнее</a>
-                                        </div>
+                                <div class="col-lg-5 col-sm-6">
+                                    <div class="single_product_content">
+                                        <h5>Цена: {{ itm.price }}&#8381;</h5>
+                                        <h2>
+                                            <a href="{% url 'mainapp:single_product' itm.id %}">{{ itm.short_desc|capfirst }}</a>
+                                        </h2>
+                                        <a href="{% url 'mainapp:single_product' itm.id %}" class="btn_3">Подробнее</a>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
@@ -81,7 +84,9 @@
                             <div class="single_product_item_thumb">
                                 <img src="{{ product.image|foto_product }}" alt="Фото" class="img-fluid">
                             </div>
-                            <h3><a href="{% url 'mainapp:single_product' product.id %}">{{ product.short_desc|capfirst }}</a></h3>
+                            <h3>
+                                <a href="{% url 'mainapp:single_product' product.id %}">{{ product.short_desc|capfirst }}</a>
+                            </h3>
                             <p>Цена: {{ product.price }}&#8381;</p>
                         </div>
                     </div>

@@ -49,6 +49,9 @@
         {% block style %}
             <link rel="stylesheet" href="{% static 'css/style.css' %}">
         {% endblock style %}
+        {% block css_custom %}
+            <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+        {% endblock css_custom %}
     {% endblock css %}
 </head>
 
@@ -88,7 +91,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         pages
                                     </a>
@@ -102,11 +105,11 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_2"
+                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_3"
                                        role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         blog
                                     </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_2">
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown_3">
                                         <a class="dropdown-item" href="blog.html"> blog</a>
                                         <a class="dropdown-item" href="single-blog.html">Single blog</a>
                                     </div>
@@ -124,7 +127,7 @@
                                href="{% url 'basket:main' %}">
                                 <i class="flaticon-shopping-cart-black-shape"></i>
                                 {% if basket_itm %}
-                                    <span class="badge badge-pill badge-primary ">{{ basket_itm.0.total_quantity }}</span>
+                                    <span class="badge badge-pill badge-primary position-absolute">{{ basket_itm.0.total_quantity }}</span>
                                 {% endif %}
                             </a>
                         </div>
@@ -172,6 +175,9 @@
 
 {% block content_adm %}
 {% endblock content_adm %}
+
+{% block order %}
+{% endblock order %}
 
 {% block trending_item %}
 {% endblock trending_item %}
@@ -336,15 +342,15 @@
         <script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
     {% endblock magnific_popup %}
 
-    {% block carousel %}
-        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-        <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
-    {% endblock carousel %}
-
     {% block swiper_js %}
         <script src="{% static 'js/swiper.min.js' %}"></script>
         <script src="{% static 'js/mixitup.min.js' %}"></script>
     {% endblock swiper_js %}
+
+    {% block carousel %}
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+    {% endblock carousel %}
 
     {% block slick %}
         <script src="{% static 'js/slick.min.js' %}"></script>
