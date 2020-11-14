@@ -33,6 +33,9 @@ class OrderItemsCreate(LoginRequiredMixin, CreateView):
     fields = []
     success_url = reverse_lazy('orderapp:orders_list')
 
+    def get_queryset(self):
+        return Order.objects.filter(buyer=self.request.user)
+
     # добавляем данные в контекст, пересобираем в одну форму OrderItemForm
     # из Order и OrderItem
     def get_context_data(self, **kwargs):
@@ -91,6 +94,9 @@ class OrderItemsUpdate(LoginRequiredMixin, UpdateView):
     fields = []
     success_url = reverse_lazy('orderapp:orders_list')
 
+    def get_queryset(self):
+        return Order.objects.filter(buyer=self.request.user)
+
     # добавляем данные в контекст, пересобираем в одну форму OrderItemForm
     # из Order и OrderItem
     def get_context_data(self, **kwargs):
@@ -128,12 +134,17 @@ class OrderItemsDelete(LoginRequiredMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('order:orders_list')
 
+    def get_queryset(self):
+        return Order.objects.filter(buyer=self.request.user)
+
 
 # Шаблон по умолчанию для класса «DetailView»
 # должен иметь имя вида  «<имя класса>_detail.html»
 class OrderRead(LoginRequiredMixin, DetailView):
     model = Order
 
+    def get_queryset(self):
+        return Order.objects.filter(buyer=self.request.user)
 
 # обновление статуса заказа при совершении покупки
 
