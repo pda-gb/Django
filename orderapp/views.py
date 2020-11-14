@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -9,9 +10,10 @@ from orderapp.forms import OrderItemForm
 from orderapp.models import Order, OrderItem
 
 
-# По умолчанию для ListView Django будет искать шаблон с именем вида
-# «<имя класса>_list.html»
-class OrderList(ListView):
+# По умолчанию для ListView Django будет искать шаблон с именем вида:
+# «<имя класса>_list.html».
+# LoginRequiredMixin - добавляем миксин для доступа только залогиненным юзерам
+class OrderList(LoginRequiredMixin, ListView):
     model = Order
 
     def get_queryset(self):
@@ -24,7 +26,7 @@ class OrderList(ListView):
 
 # Для классов CreateView и UpdateView шаблон должен иметь имя вида
 # «<имя класса>_form.html»
-class OrderItemsCreate(CreateView):
+class OrderItemsCreate(LoginRequiredMixin, CreateView):
     model = Order
     # в соответствии с моделью все поля, кроме пользователя buyer, создаются
     # автоматически, buyer добавим позже
@@ -82,7 +84,7 @@ class OrderItemsCreate(CreateView):
         return super(OrderItemsCreate, self).form_valid(form)
 
 
-class OrderItemsUpdate(UpdateView):
+class OrderItemsUpdate(LoginRequiredMixin, UpdateView):
     model = Order
     # в соответствии с моделью все поля, кроме пользователя buyer, создаются
     # автоматически, buyer добавим позже
@@ -122,14 +124,14 @@ class OrderItemsUpdate(UpdateView):
 
 
 # Шаблон удаления должен иметь имя вида «<имя класса>_confirm_delete.html»
-class OrderItemsDelete(DeleteView):
+class OrderItemsDelete(LoginRequiredMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('order:orders_list')
 
 
 # Шаблон по умолчанию для класса «DetailView»
 # должен иметь имя вида  «<имя класса>_detail.html»
-class OrderRead(DetailView):
+class OrderRead(LoginRequiredMixin, DetailView):
     model = Order
 
 
