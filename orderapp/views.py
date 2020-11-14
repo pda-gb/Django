@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -72,13 +73,13 @@ class OrderItemsCreate(LoginRequiredMixin, CreateView):
         context = self.get_context_data()  # забраем контекст
         orderitems = context['orderitems']  # из него orderitems
 
-        # with transaction.atomic():
-        # в форму добавляем пользователя из пост запроса
-        form.instance.buyer = self.request.user
-        self.object = form.save()
-        if orderitems.is_valid():
-            orderitems.instance = self.object
-            orderitems.save()
+        with transaction.atomic():
+            # в форму добавляем пользователя из пост запроса
+            form.instance.buyer = self.request.user
+            self.object = form.save()
+            if orderitems.is_valid():
+                orderitems.instance = self.object
+                orderitems.save()
 
         # удаляем пустой заказ
         if self.object.get_total_cost() == 0:
